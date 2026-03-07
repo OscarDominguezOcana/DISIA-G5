@@ -1,0 +1,239 @@
+\setcounter{secnumdepth}{2}
+
+\chapter{Hito 1: Definición del problema y determinación del alcance}
+
+
+En este capítulo se detalla la definición del problema seleccionado para la evaluación del proyecto de la asignatura Desarrollo e Integración de Servicios de IA así como la determinación de su alcance.
+
+\section{Contexto y definición del problema}
+
+En el ámbito de las plataformas digitales de relaciones interpersonales, la predicción de compatibilidad entre individuos constituye un problema de alta relevancia tecnológica, social y económica. Las aplicaciones de citas modernas gestionan grandes volúmenes de información estructurada sobre los usuarios, incluyendo variables demográficas, profesionales, rasgos de personalidad y preferencias relacionales. A partir de estos datos, los sistemas deben decidir qué perfiles recomendar y qué emparejamientos priorizar.\\
+
+La compatibilidad relacional es, sin embargo, un fenómeno inherentemente complejo y multidimensional. No depende exclusivamente de variables superficiales como la edad o la localización geográfica, sino que está influida por la interacción entre rasgos de personalidad, valores personales, ambiciones profesionales, estilos de comunicación, hábitos cotidianos y expectativas afectivas. Esta naturaleza multifactorial convierte la modelización de la compatibilidad en un problema analítico no trivial.\\
+
+Tradicionalmente, muchas plataformas han empleado reglas heurísticas o sistemas de filtrado simples basados en coincidencias directas (por ejemplo, misma localización o intereses compartidos). Estos enfoques presentan limitaciones evidentes: no capturan interacciones complejas entre variables, no permiten aprender patrones implícitos presentes en los datos y suelen carecer de transparencia en la forma en que generan recomendaciones.\\
+
+El dataset seleccionado para este proyecto, “Cupid’s Algorithm”, contiene información estructurada sobre pares de individuos (Person A – Person B), incluyendo:
+
+\begin{itemize}
+    \item Variables demográficas (edad, nivel educativo, localización).
+    \item Variables profesionales (campo profesional, nivel de ambición).
+    \item Rasgos de personalidad basados en el modelo Big Five.
+    \item Variables relacionales (lenguaje del amor, cronotipo, espontaneidad, expresividad emocional).
+    \item Una variable continua de compatibilidad ($compatibility\_score$).
+    \item Una variable binaria de compatibilidad ($compatible$).
+    \item Un indicador de longevidad relacional ($relationship\_longe$).
+\end{itemize}
+
+La presencia de estas variables permite abordar el problema desde una perspectiva supervisada, donde la compatibilidad observada actúa como señal objetivo para el aprendizaje.
+
+Desde el punto de vista formal, el problema puede plantearse como un problema de clasificación binaria. Cada par de individuos queda caracterizado por un conjunto de variables numéricas y categóricas que describen sus atributos individuales. El sistema debe aprender una función:
+
+$$f(X_A, X_B) = P(\text{compatible} = 1)$$
+
+Donde $X_A$ y $X_B$ representan los vectores de características (demográficas y psicológicas) de los individuos A y B.\\
+
+Alternativamente, el problema puede formularse como una regresión cuando se utiliza la variable continua $compatibility\_score$ como objetivo, o como una predicción de duración cuando se emplea $relationship\_longe$. No obstante, en este proyecto se delimita el alcance principal al problema de clasificación binaria, al tratarse de una formulación clara, evaluable y directamente alineada con aplicaciones reales de matching.\\
+
+El sistema no debe limitarse a generar una predicción numérica, sino que debe concebirse como un sistema de inteligencia artificial integrable en un entorno software real. Esto implica que el modelo debe ser reproducible, evaluable mediante métricas adecuadas y potencialmente explicable, de manera que las decisiones puedan ser comprendidas por responsables de producto y desarrolladores de la plataforma.\\
+
+En consecuencia, el problema queda claramente delimitado: a partir de datos estructurados que describen características personales, profesionales y psicológicas de dos individuos, se busca diseñar un sistema de inteligencia artificial capaz de predecir de forma objetiva, consistente y explicable su compatibilidad relacional, concebido como un componente integrable dentro de una arquitectura software más amplia.
+
+\section{Objetivos generales y específicos}
+
+El problema que se aborda en este proyecto puede formularse de la siguiente manera: ¿Cómo diseñar un sistema de inteligencia artificial capaz de predecir de forma objetiva, consistente y explicable la compatibilidad entre dos individuos, a partir de variables demográficas, profesionales y de personalidad, garantizando su integración como servicio software en una plataforma digital de relaciones?\\
+
+Esta formulación no se limita a la obtención de buenas métricas técnicas, sino que incorpora explícitamente la dimensión de sistema IA como producto, concebido para integrarse en un entorno real, evolucionar en el tiempo y aportar valor a distintos stakeholders.\\
+
+Para dar respuesta a esta pregunta, se establece como objetivo general del proyecto diseñar, implementar y validar un sistema de inteligencia artificial capaz de predecir la compatibilidad relacional entre dos individuos utilizando datos estructurados, garantizando su integración en una arquitectura software real y su funcionamiento fiable, explicable y reproducible a lo largo del tiempo.\\
+
+Para alcanzar el objetivo general propuesto, se establecen los siguientes objetivos específicos:
+
+\begin{itemize}
+    \item Analizar y formalizar el concepto de compatibilidad relacional desde una perspectiva cuantitativa y multidimensional, identificando las variables más relevantes en el dataset seleccionado.
+    \item Seleccionar y procesar los datos del dataset Cupid’s Algorithm, incluyendo limpieza, codificación de variables categóricas y construcción de variables derivadas que representen similitud o distancia entre perfiles (por ejemplo, diferencias de edad o distancias en rasgos de personalidad).
+    \item Diseñar y entrenar modelos de aprendizaje automático supervisado que permitan predecir la variable binaria compatible, evaluando distintas aproximaciones metodológicas.
+    \item Evaluar el rendimiento de los modelos mediante métricas técnicas adecuadas para problemas de clasificación binaria (Accuracy, Precision, Recall, F1-score, ROC-AUC), así como analizar su comportamiento desde una perspectiva alineada con el dominio.
+    \item Incorporar mecanismos de explicabilidad, que permitan interpretar la influencia relativa de las distintas variables en la predicción del modelo y facilitar su comprensión por parte de perfiles no técnicos.
+    \item Diseñar el sistema como un servicio integrable, desarrollando una API REST que permita realizar predicciones de compatibilidad a partir de nuevos pares de individuos.
+    \item Analizar la viabilidad económica y organizativa del sistema, estimando costes de desarrollo y potencial retorno de la inversión (ROI) en un escenario realista de aplicación.
+    \item Plantear posibles líneas de evolución futura, como la extensión hacia sistemas de recomendación top-K o la incorporación de modelos de predicción de duración relacional.
+\end{itemize}
+
+De este modo, el proyecto no se concibe como un simple ejercicio de modelado predictivo, sino como el desarrollo completo de un sistema de inteligencia artificial entendido como producto tecnológico, recorriendo todas las fases de su ciclo de vida: definición del problema, preparación de datos, modelado, evaluación, integración y análisis de valor.
+
+\section{Determinación del alcance}
+
+En esta sección se define el alcance del proyecto a desarrollar en la asignatura, prestando especial atención a los componentes clave que delimitan un sistema de inteligencia artificial concebido como producto: planificación temporal, organización del equipo, viabilidad económica y valor generado.\\
+
+El alcance no solo determina qué se va a desarrollar, sino también qué queda explícitamente fuera del proyecto, con el fin de garantizar su viabilidad dentro del marco temporal de la asignatura y evitar una expansión descontrolada de requisitos.
+
+\subsection{Planificación}
+
+El proyecto se desarrollará en un periodo estimado de ocho semanas, estructurado en fases alineadas con el ciclo de vida de un sistema de Machine Learning:
+
+\textbf{Fase 1 – Análisis y comprensión del problema (Semanas 1–2)}
+\begin{itemize}
+    \item Estudio detallado del dataset Cupid’s Algorithm.
+    \item Análisis exploratorio de variables.
+    \item Formalización definitiva del problema de clasificación binaria.
+\end{itemize}
+
+\textbf{Fase 2 – Preparación y transformación de datos (Semanas 3–4)}
+\begin{itemize}
+    \item Limpieza de datos.
+    \item Codificación de variables categóricas.
+    \item Construcción de variables derivadas (similitudes, diferencias y distancias entre perfiles).
+    \item División en conjuntos de entrenamiento y validación.
+\end{itemize}
+
+\textbf{Fase 3 – Modelado y evaluación (Semanas 5–6)}
+\begin{itemize}
+    \item Entrenamiento de distintos modelos supervisados.
+    \item Comparación de métricas.
+    \item Selección del modelo final.
+    \item Análisis de explicabilidad.
+\end{itemize}
+
+\textbf{Fase 4 – Integración como servicio (Semana 7)}
+\begin{itemize}
+    \item Serialización del modelo entrenado.
+    \item Desarrollo de API REST para predicción.
+    \item Pruebas funcionales del sistema.
+\end{itemize}
+
+\textbf{Fase 5 – Validación y análisis de valor (Semana 8)}
+\begin{itemize}
+    \item Evaluación final del sistema.
+    \item Análisis de viabilidad y ROI.
+    \item Redacción de documentación final.
+\end{itemize}
+
+Esta planificación permite recorrer todas las fases fundamentales del desarrollo de un sistema IA como producto sin exceder el marco temporal de la asignatura.
+
+\subsection{Recursos Humanos: asignación de tareas y capacidad}
+El desarrollo del sistema CUPID-AI se estructura como un proyecto profesional de inteligencia artificial, con un equipo técnico compuesto por cuatro miembros, cada uno con responsabilidades diferenciadas y complementarias.
+Equipo técnico de desarrollo
+1. Experto en Dominio y Analista de Resultados (Domain Expert / AI Analyst)
+ Responsable de:
+\begin{itemize}
+    \item Formalizar el concepto de compatibilidad relacional.
+    \item Analizar la coherencia de los resultados del modelo.
+    \item Evaluar la interpretabilidad del sistema.
+    \item Validar las predicciones desde una perspectiva conceptual y de producto.
+\end{itemize}
+Este rol actúa como enlace entre el modelo matemático y la interpretación relacional del problema, asegurando que las predicciones sean coherentes y justificables.
+
+2. Analista de Datos (Data Analyst / Data Engineer)
+ Responsable de:
+\begin{itemize}
+    \item Exploración y limpieza del dataset.
+    \item Transformación de variables.
+    \item Construcción de métricas de similitud entre perfiles.
+    \item Garantizar la calidad y consistencia del conjunto de datos.
+\end{itemize}
+
+Este rol constituye la base del sistema, ya que la calidad del modelo depende directamente de la calidad de los datos de entrada.
+
+3. Ingeniero de Machine Learning (ML Engineer / AI Researcher)
+ Responsable de:
+
+\begin{itemize}
+    \item Selección y diseño de modelos supervisados.
+    \item Ajuste de hiperparámetros.
+    \item Evaluación comparativa de modelos.
+    \item Implementación de métricas técnicas.
+\end{itemize}
+
+Este rol conecta con la fase de modelado, evaluación técnica y validación cuantitativa del sistema.
+
+4. Ingeniero de Integración y MLOps (ML Systems Engineer)
+ Responsable de:
+
+\begin{itemize}
+    \item Serialización y versionado del modelo entrenado.
+    \item Desarrollo de API REST para predicción.
+    \item Diseño de arquitectura del sistema.
+    \item Pruebas de integración y funcionamiento.
+\end{itemize}
+
+Este perfil garantiza que el proyecto no se limite a un modelo en un notebook, sino que se materialice como un servicio integrable dentro de una plataforma digital.
+
+Esta estructura organizativa replica un escenario realista de desarrollo de sistemas de inteligencia artificial, donde intervienen perfiles técnicos especializados en datos, modelado e integración, así como un perfil orientado al análisis conceptual y validación.
+
+\subsection{Delimitación funcional del sistema}
+El alcance funcional del proyecto se limita a:
+
+\begin{itemize}
+    \item Predicción binaria de compatibilidad (compatible).
+    \item Uso exclusivo del dataset Cupid’s Algorithm.
+    \item Desarrollo de una API REST básica para predicción.
+    \item Evaluación offline mediante métricas estándar.
+\end{itemize}
+
+Quedan explícitamente fuera del alcance:
+\begin{itemize}
+    \item Desarrollo de una plataforma web completa.
+    \item Implementación de un sistema de recomendación top-K a gran escala.
+    \item Integración con bases de datos reales de usuarios.
+    \item Despliegue en entorno cloud productivo.
+\end{itemize}
+	
+Esta delimitación garantiza que el proyecto sea viable en el marco temporal disponible.
+
+\subsection{Viabilidad y estimación del ROI}
+Para estimar la viabilidad económica del sistema se plantean los siguientes supuestos:
+
+\begin{itemize}
+    \item Equipo técnico: 4 personas.
+    \item Dedicación media: 8 horas semanales por persona.
+    \item Duración: 8 semanas.
+    \item Coste medio por hora: 40 €.
+\end{itemize}
+
+Horas totales estimadas:
+$$\text{Horas totales} = 4 \text{ personas} \times 8 \text{ h/semana} \times 8 \text{ semanas} = 256 \text{ horas}$$
+
+Coste total estimado:
+$$256 \text{ horas} \times 40 \text{ €/hora} = 10.240 \text{ €} $$
+
+Desde el punto de vista organizativo, un sistema de predicción de compatibilidad puede generar beneficios en forma de:
+
+\begin{itemize}
+    \item Incremento de la tasa de emparejamientos exitosos.
+    \item Reducción del abandono de usuarios.
+    \item Mejora de la satisfacción y fidelización.
+    \item Posible comercialización del motor de matching como servicio.
+\end{itemize}
+
+Si el sistema generara un beneficio acumulado conservador de 15.000 € en un periodo de uso prolongado, el retorno de la inversión sería:
+$$ROI = \frac{\text{Beneficio} - \text{Coste}}{\text{Coste}} = \frac{15000 - 10240}{10240} = 0.46$$
+
+Es decir, un 46\% de retorno estimado, lo que indica viabilidad económica.
+
+\subsection{Valor}
+
+El valor del sistema CUPID-AI se analiza desde múltiples dimensiones:
+
+\textbf{Valor tecnológico:}
+\begin{itemize}
+    \item Formalización de la compatibilidad como problema supervisado.
+    \item Modelo reproducible y explicable.
+    \item Arquitectura integrable como microservicio.
+\end{itemize}
+
+\textbf{Valor organizativo:}
+\begin{itemize}
+    \item Reutilizable y escalable.
+    \item Base para sistemas más avanzados de recomendación.
+\end{itemize}
+
+\textbf{Valor social:}
+\begin{itemize}
+    \item Mayor transparencia en el proceso de matching.
+    \item Reducción de decisiones arbitrarias.
+    \item Mejora de confianza del usuario.
+\end{itemize}
+
+
+Con esta delimitación, el proyecto se concibe como el desarrollo completo de un sistema de inteligencia artificial entendido como producto tecnológico, cubriendo todas las fases de su ciclo de vida y garantizando su viabilidad dentro del marco temporal y académico de la asignatura.

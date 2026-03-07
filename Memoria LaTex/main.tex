@@ -1,0 +1,50 @@
+\documentclass{ULBreport}
+
+\sceau{Pictures/uclm.png}
+
+\addbibresource{biblio.bib}
+
+\input{common/packages}
+
+\makeglossaries
+
+% \newglossaryentry{strip mining}
+% {
+%   name=strip mining,
+%   description={is the practice of mining a seam of mineral, by first removing a long strip of overlying soil and rock}
+% }
+
+
+
+% \newacronym{t}{t}{tons}
+
+
+
+\begin{document}
+
+\titleULB{
+	title={CORE-MP: Computación Objetiva de Relaciones Exitosas mediante Modelos Predictivos. Un enfoque data-driven para la evaluación de compatibilidad.},
+	course={Desarrollo e Integración de Servicios de IA},
+	author={Raúl Bernalte Sánchez \\ José Manuel Bastante Rodríguez \\ Óscar Domínguez Ocaña \\ José Alberto Seco Sánchez-Camacho},
+	date={2026},
+	teacher={Dr. José Antonio De La Torre Las Heras \\ Dr. Julio Alberto López Gómez},
+	logo={Pictures/logos_uclm_esi.jpg}
+}
+
+\listoftables % ToC for tables
+
+\listoffigures % ToC for figures
+
+\input{content/chapters.tex}
+
+\printglossary
+
+\printglossary[type=\acronymtype]
+
+%Bibliography
+\nocite{*}
+\cleardoublepage
+\phantomsection
+\printbibliography[heading=bibintoc, title={References}]
+
+\end{document}
