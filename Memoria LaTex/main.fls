@@ -690,6 +690,9 @@ INPUT .\content\chapters\chapter2.tex
 INPUT .\content\chapters\chapter2.tex
 INPUT .\content\chapters\chapter2.tex
 INPUT content\chapters\chapter2.tex
+INPUT C:\Users\Usuario\AppData\Local\Programs\MiKTeX\fonts\tfm\public\fourier\futb8t.tfm
+INPUT C:\Users\Usuario\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ectt0900.tfm
+INPUT C:\Users\Usuario\AppData\Local\Programs\MiKTeX\fonts\tfm\public\fourier\futri8t.tfm
 INPUT .\Pictures\24_records_a.png
 INPUT .\Pictures\24_records_a.png
 INPUT .\Pictures\24_records_a.png
@@ -697,6 +700,12 @@ INPUT .\Pictures\24_records_a.png
 INPUT .\Pictures\24_records_a.png
 INPUT .\Pictures\24_records_a.png
 INPUT .\Pictures\24_records_a.png
+INPUT C:\Users\Usuario\AppData\Local\Programs\MiKTeX\fonts\vf\public\fourier\futb8t.vf
+INPUT C:\Users\Usuario\AppData\Local\Programs\MiKTeX\fonts\tfm\public\fourier\futb8r.tfm
+INPUT C:\Users\Usuario\AppData\Local\Programs\MiKTeX\fonts\tfm\public\fourier\fourier-alt-bold.tfm
+INPUT C:\Users\Usuario\AppData\Local\Programs\MiKTeX\fonts\vf\public\fourier\futri8t.vf
+INPUT C:\Users\Usuario\AppData\Local\Programs\MiKTeX\fonts\tfm\public\fourier\futri8r.tfm
+INPUT C:\Users\Usuario\AppData\Local\Programs\MiKTeX\fonts\tfm\public\fourier\fourier-alt-ita.tfm
 INPUT .\Pictures\24_records_b.png
 INPUT .\Pictures\24_records_b.png
 INPUT .\Pictures\24_records_b.png
@@ -733,6 +742,8 @@ INPUT .\main.out
 INPUT .\main.out
 INPUT main.run.xml
 OUTPUT main.run.xml
+INPUT C:\Users\Usuario\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ectt0900.pk
+INPUT C:\Users\Usuario\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ectt0900.pk
 INPUT C:\Users\Usuario\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ectt1095.pk
 INPUT C:\Users\Usuario\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ectt1095.pk
 INPUT C:\Users\Usuario\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecsx1440.pk

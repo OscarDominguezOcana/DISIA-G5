@@ -10,7 +10,7 @@ El objetivo principal de esta sección es comprender cómo interactúan y se cor
 
 \section{Fuentes, origen y tamaño de los datos}
 \label{sec:fuentes_datos}
-La fuente de información que sustenta esta investigación es el conjunto de datos referenciado como \texttt{cupid\_algorithm\_dataset.csv}. Este \textit{dataset} emula el entorno operativo de una aplicación de emparejamiento (\textit{matchmaking}) a gran escala, registrando interacciones reales entre usuarios.
+La fuente de información para realizar esta investigación es \texttt{cupid\_algorithm\_dataset.csv}. Este \textit{dataset} emula el entorno operativo de una aplicación de emparejamiento (\textit{matchmaking}) a gran escala, registrando interacciones reales entre usuarios.
 
 En términos de volumetría, la muestra consta de \textbf{100.000 observaciones} (pares evaluados) y 30 características originales. La magnitud y completitud del conjunto de datos garantizan la representatividad estadística necesaria para entrenar modelos de aprendizaje automático de alta complejidad, mitigando el riesgo de sobreajuste (\textit{overfitting}) temprano. Asimismo, la validación de calidad del dato evidenció una estructura robusta: la inspección inicial confirmó la ausencia total de valores nulos o faltantes, lo cual permite prescindir de técnicas de imputación sintética que pudieran introducir sesgos artificiales en las distribuciones originales.
 
@@ -35,7 +35,8 @@ Para facilitar la comprensión global de la estructura base del sistema, la Tabl
 
 \begin{table}[H]
 \centering
-\begin{tabular}{llp{9.5cm}}
+\footnotesize % <-- Comando añadido para reducir el tamaño de la fuente de la tabla
+\begin{tabular}{llp{10.5cm}}
 \hline
 \textbf{Variable} & \textbf{Tipo} & \textbf{Descripción} \\ \hline
 \texttt{pair\_id} & Entero & Identificador único (1 a 100,000) de cada pareja evaluada. Actúa como clave primaria. \\
@@ -80,7 +81,7 @@ Más allá de las características predictoras de cada usuario individual, el si
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.60\textwidth]{Pictures/24_records_comp.png}
+  \includegraphics[width=0.50\textwidth]{Pictures/24_records_comp.png}
   \caption{Representación de las variables objetivo que definen el nivel de satisfaction y viabilidad de la relación, correspondientes a los 24 primeros registros del conjunto de datos.}
   \label{fig:ejemplo_targets}
 \end{figure}
@@ -108,7 +109,7 @@ Un ejemplo claro de este comportamiento se visualiza en la Figura~\ref{fig:matri
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.75\textwidth]{Pictures/matriz_lenguajes_amor.png}
+  \includegraphics[width=0.67\textwidth]{Pictures/matriz_lenguajes_amor.png}
   \caption{Matriz de contingencia térmica (\textit{Heatmap}): Tasa de compatibilidad porcentual según el cruce de los lenguajes del amor entre ambos individuos.}
   \label{fig:matriz_lenguajes_amor}
 \end{figure}

@@ -3,9 +3,9 @@
 \contentsline {chapter}{Hito 1: Definición del problema y determinación del alcance}{5}{chapter*.2}%
 \contentsline {section}{Contexto y definición del problema}{5}{section*.3}%
 \contentsline {section}{Objetivos generales y específicos}{7}{section*.4}%
-\contentsline {section}{Determinación del alcance}{9}{section*.5}%
+\contentsline {section}{Determinación del alcance}{8}{section*.5}%
 \contentsline {subsection}{Planificación}{9}{section*.6}%
-\contentsline {subsection}{Recursos Humanos: asignación de tareas y capacidad}{10}{section*.7}%
+\contentsline {subsection}{Recursos Humanos: asignación de tareas y capacidad}{9}{section*.7}%
 \contentsline {subsection}{Delimitación funcional del sistema}{11}{section*.8}%
 \contentsline {subsection}{Viabilidad y estimación del ROI}{11}{section*.9}%
 \contentsline {subsection}{Valor}{13}{section*.10}%

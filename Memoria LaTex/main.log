@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.2.23)  10 MAR 2026 21:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.2.23)  10 MAR 2026 22:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1567,9 +1567,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 65--66
 File: Pictures/Objetivos.png Graphic file (type png)
 <use Pictures/Objetivos.png>
 Package pdftex.def Info: Pictures/Objetivos.png  used on input line 87.
-(pdftex.def)             Requested size: 338.58632pt x 397.29175pt.
+(pdftex.def)             Requested size: 193.47578pt x 227.00623pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 95--96
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 101--102
 
  []
 
@@ -1577,13 +1582,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 95--96
 pdfTeX warning (ext4): destination with the same identifier (name{figure.0.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.96 
-      <./Pictures/Objetivos.png (PNG copy)>]
-Underfull \hbox (badness 10000) in paragraph at lines 101--102
-
- []
-
-
+l.102 
+       <./Pictures/Objetivos.png (PNG copy)>]
 Underfull \hbox (badness 10000) in paragraph at lines 103--104
 
  []
@@ -1593,7 +1593,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 105--106
 
  []
 
-[9]
+
 Underfull \hbox (badness 10000) in paragraph at lines 111--112
 
  []
@@ -1603,7 +1603,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 113--114
 
  []
 
-
+[9]
 Underfull \hbox (badness 10000) in paragraph at lines 115--116
 
  []
@@ -1618,100 +1618,88 @@ Underfull \hbox (badness 10000) in paragraph at lines 119--120
 
  []
 
-[10] [11] [12]) (content/chapters/chapter2.tex [13]
-Overfull \hbox (119.05733pt too wide) in paragraph at lines 13--14
-\T1/futs/m/n/10.95 La fuente de in-for-ma-ción que sus-tenta esta in-ves-ti-gación es el con-junto de datos ref-er-en-ci-ado como \T1/cmtt/m/n/10.95 cupid_algorithm_dataset.csv\T1/futs/m/n/10.95 .
- []
-
-[14
+[10] [11] [12]) (content/chapters/chapter2.tex [13] [14
 
 ]
 Overfull \hbox (13.74933pt too wide) in paragraph at lines 22--23
 \T1/futs/m/n/10.95 ed-uca-tivo (mod-e-lado como vari-able or-di-nal), la ubi-cación ge-ográ-fica o en-torno de res-i-den-cia (\T1/cmtt/m/n/10.95 location\T1/futs/m/n/10.95 )
  []
 
-
-Underfull \hbox (badness 3364) in paragraph at lines 45--46
-[]|\T1/futs/m/n/10.95 Sector pro-fe-sional (10 in-dus-trias). Su com-pat-i-bil-i-dad
- []
-
 [15]
-Overfull \vbox (25.35605pt too high) has occurred while \output is active []
-
+<Pictures/24_records_a.png, id=223, 1230.09563pt x 406.51875pt>
+File: Pictures/24_records_a.png Graphic file (type png)
+<use Pictures/24_records_a.png>
+Package pdftex.def Info: Pictures/24_records_a.png  used on input line 68.
+(pdftex.def)             Requested size: 459.51054pt x 151.86107pt.
  [16
 pdfTeX warning (ext4): destination with the same identifier (name{table.0.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.62 
+l.72 
      ]
-<Pictures/24_records_a.png, id=227, 1230.09563pt x 406.51875pt>
-File: Pictures/24_records_a.png Graphic file (type png)
-<use Pictures/24_records_a.png>
-Package pdftex.def Info: Pictures/24_records_a.png  used on input line 67.
-(pdftex.def)             Requested size: 459.51054pt x 151.86107pt.
-<Pictures/24_records_b.png, id=228, 1227.08438pt x 391.4625pt>
+<Pictures/24_records_b.png, id=229, 1227.08438pt x 391.4625pt>
 File: Pictures/24_records_b.png Graphic file (type png)
 <use Pictures/24_records_b.png>
-Package pdftex.def Info: Pictures/24_records_b.png  used on input line 74.
+Package pdftex.def Info: Pictures/24_records_b.png  used on input line 75.
 (pdftex.def)             Requested size: 459.51054pt x 146.589pt.
 
-Overfull \hbox (40.56982pt too wide) in paragraph at lines 79--80
+Overfull \hbox (40.56982pt too wide) in paragraph at lines 80--81
 \T1/futs/m/n/10.95 Figura []4[] ex-pone vi-sual-mente los cam-pos \T1/cmtt/m/n/10.95 compatibility_score\T1/futs/m/n/10.95 , \T1/cmtt/m/n/10.95 compatible \T1/futs/m/n/10.95 y \T1/cmtt/m/n/10.95 relationship_longevity_months
  []
 
-<Pictures/24_records_comp.png, id=230, 414.04688pt x 392.21532pt>
+<Pictures/24_records_comp.png, id=231, 414.04688pt x 392.21532pt>
 File: Pictures/24_records_comp.png Graphic file (type png)
 <use Pictures/24_records_comp.png>
-Package pdftex.def Info: Pictures/24_records_comp.png  used on input line 83.
-(pdftex.def)             Requested size: 290.22107pt x 274.92589pt.
+Package pdftex.def Info: Pictures/24_records_comp.png  used on input line 84.
+(pdftex.def)             Requested size: 241.84843pt x 229.1009pt.
 [17
 pdfTeX warning (ext4): destination with the same identifier (name{figure.0.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.87 
+l.88 
      
 pdfTeX warning (ext4): destination with the same identifier (name{figure.0.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.87 
+l.88 
       <./Pictures/24_records_a.png> <./Pictures/24_records_b.png>]
-<Pictures/distribuciones_targets.png, id=239, 1289.2968pt x 349.7868pt>
+<Pictures/distribuciones_targets.png, id=240, 1289.2968pt x 349.7868pt>
 File: Pictures/distribuciones_targets.png Graphic file (type png)
 <use Pictures/distribuciones_targets.png>
-Package pdftex.def Info: Pictures/distribuciones_targets.png  used on input line 99.
+Package pdftex.def Info: Pictures/distribuciones_targets.png  used on input line 100.
 (pdftex.def)             Requested size: 459.51054pt x 124.66354pt.
  [18
 pdfTeX warning (ext4): destination with the same identifier (name{figure.0.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.103 
+l.104 
        <./Pictures/24_records_comp.png>]
-<Pictures/matriz_lenguajes_amor.png, id=246, 593.3367pt x 508.7808pt>
+<Pictures/matriz_lenguajes_amor.png, id=247, 593.3367pt x 508.7808pt>
 File: Pictures/matriz_lenguajes_amor.png Graphic file (type png)
 <use Pictures/matriz_lenguajes_amor.png>
-Package pdftex.def Info: Pictures/matriz_lenguajes_amor.png  used on input line 111.
-(pdftex.def)             Requested size: 362.77264pt x 311.08559pt.
+Package pdftex.def Info: Pictures/matriz_lenguajes_amor.png  used on input line 112.
+(pdftex.def)             Requested size: 324.076pt x 277.89722pt.
  [19
 pdfTeX warning (ext4): destination with the same identifier (name{figure.0.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.115 
-       <./Pictures/distribuciones_targets.png>]
-Underfull \hbox (badness 4805) in paragraph at lines 134--134
+l.118 
+      
+pdfTeX warning (ext4): destination with the same identifier (name{figure.0.6}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.118 
+       <./Pictures/distribuciones_targets.png> <./Pictures/matriz_lenguajes_amor.png>]
+Underfull \hbox (badness 4805) in paragraph at lines 135--135
 []|\T1/futs/m/n/10.95 Brecha ab-so-luta en am-bi-ción pro-fe-sional. Las
  []
 
 [20
-pdfTeX warning (ext4): destination with the same identifier (name{figure.0.6}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.139 
-       <./Pictures/matriz_lenguajes_amor.png>] [21
 pdfTeX warning (ext4): destination with the same identifier (name{table.0.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.159     \end{itemize}
-                       ]))
+l.146 
+      ] [21]))
 No file main.gls.
 No file main.acr.
 [22] [23
@@ -1729,20 +1717,20 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 53659 strings out of 467871
- 1209096 string characters out of 5417408
- 2270541 words of memory out of 5000000
- 81607 multiletter control sequences out of 15000+600000
- 710482 words of font info for 135 fonts, out of 8000000 for 9000
+ 53667 strings out of 467871
+ 1209188 string characters out of 5417408
+ 2272541 words of memory out of 5000000
+ 81610 multiletter control sequences out of 15000+600000
+ 719886 words of font info for 142 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  117i,12n,121p,2683b,1968s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
 
- <C:\Users\Usuario\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1095.pk> <C:\Users\Usuario\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsx1440.pk><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/public/fourier/fourier-bb.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/public/fourier/fourier-mex.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/public/fourier/fourier-mlit.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/public/fourier/fourier-ms.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/adobe/utopia/putb8a.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/adobe/utopia/putbi8a.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/adobe/utopia/putr8a.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/adobe/utopia/putri8a.pfb>
-Output written on main.pdf (25 pages, 703363 bytes).
+ <C:\Users\Usuario\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt0900.pk> <C:\Users\Usuario\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1095.pk> <C:\Users\Usuario\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsx1440.pk><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/public/fourier/fourier-bb.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/public/fourier/fourier-mex.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/public/fourier/fourier-mlit.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/public/fourier/fourier-ms.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/adobe/utopia/putb8a.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/adobe/utopia/putbi8a.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/adobe/utopia/putr8a.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/adobe/utopia/putri8a.pfb>
+Output written on main.pdf (25 pages, 709982 bytes).
 PDF statistics:
- 399 PDF objects out of 1000 (max. 8388607)
+ 425 PDF objects out of 1000 (max. 8388607)
  62 named destinations out of 1000 (max. 500000)
  205 words of extra memory for PDF output out of 10000 (max. 10000000)
 
