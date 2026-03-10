@@ -1,12 +1,20 @@
 \babel@toc {english}{}\relax 
 \contentsline {chapter}{Introducción}{3}{chapter*.1}%
-\contentsline {chapter}{\numberline {1}Hito 1: Definición del problema y determinación del alcance}{5}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Contexto y definición del problema}{5}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Objetivos generales y específicos}{7}{section.1.2}%
-\contentsline {section}{\numberline {1.3}Determinación del alcance}{8}{section.1.3}%
-\contentsline {subsection}{\numberline {1.3.1}Planificación}{8}{subsection.1.3.1}%
-\contentsline {subsection}{\numberline {1.3.2}Recursos Humanos: asignación de tareas y capacidad}{9}{subsection.1.3.2}%
-\contentsline {subsection}{\numberline {1.3.3}Delimitación funcional del sistema}{10}{subsection.1.3.3}%
-\contentsline {subsection}{\numberline {1.3.4}Viabilidad y estimación del ROI}{10}{subsection.1.3.4}%
-\contentsline {subsection}{\numberline {1.3.5}Valor}{11}{subsection.1.3.5}%
-\contentsline {chapter}{References}{12}{section*.2}%
+\contentsline {chapter}{Hito 1: Definición del problema y determinación del alcance}{5}{chapter*.2}%
+\contentsline {section}{Contexto y definición del problema}{5}{section*.3}%
+\contentsline {section}{Objetivos generales y específicos}{7}{section*.4}%
+\contentsline {section}{Determinación del alcance}{9}{section*.5}%
+\contentsline {subsection}{Planificación}{9}{section*.6}%
+\contentsline {subsection}{Recursos Humanos: asignación de tareas y capacidad}{10}{section*.7}%
+\contentsline {subsection}{Delimitación funcional del sistema}{11}{section*.8}%
+\contentsline {subsection}{Viabilidad y estimación del ROI}{11}{section*.9}%
+\contentsline {subsection}{Valor}{13}{section*.10}%
+\contentsline {chapter}{Los datos: origen, descripción y análisis}{14}{chapter*.11}%
+\contentsline {section}{Introducción}{14}{section*.12}%
+\contentsline {section}{Fuentes, origen y tamaño de los datos}{14}{section*.13}%
+\contentsline {section}{Inventario de datos}{14}{section*.14}%
+\contentsline {section}{Análisis de los datos}{18}{section*.15}%
+\contentsline {subsection}{Distribuciones de las Variables Objetivo}{18}{section*.16}%
+\contentsline {subsection}{Afinidad e Ingeniería de Características}{19}{section*.17}%
+\contentsline {section}{Evaluación del rendimiento y Métricas}{21}{section*.18}%
+\contentsline {chapter}{References}{23}{section*.19}%

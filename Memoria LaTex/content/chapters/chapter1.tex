@@ -1,4 +1,4 @@
-\setcounter{secnumdepth}{2}
+% \setcounter{secnumdepth}{2}
 
 \chapter{Hito 1: Definición del problema y determinación del alcance}
 
@@ -10,7 +10,7 @@ En el ámbito de las plataformas digitales de relaciones interpersonales, la pre
 
 La compatibilidad relacional es, sin embargo, un \textbf{fenómeno inherentemente complejo y multidimensional}. No depende exclusivamente de variables superficiales como la edad o la localización geográfica, sino que está influida por la interacción entre rasgos de personalidad, valores personales, ambiciones profesionales, estilos de comunicación, hábitos cotidianos y expectativas afectivas. Esta naturaleza multifactorial convierte la modelización de la compatibilidad en un problema analítico no trivial.\\
 
-Tradicionalmente, muchas plataformas han empleado reglas heurísticas o sistemas de filtrado simples basados en coincidencias directas. Estos enfoques presentan limitaciones evidentes: no capturan interacciones complejas, no aprenden patrones implícitos y carecen de transparencia. A diferencia de una regla heurística simple que podría asumir erróneamente que dos personas con la misma \textit{ambición profesional} son compatibles, un modelo de inteligencia artificial puede descubrir \textbf{patrones latentes}. Por ejemplo, identificar que dos personas con niveles opuestos de \textit{espontaneidad} pueden ser altamente compatibles si comparten el mismo \textit{lenguaje del amor}. Esta capacidad de capturar interacciones no lineales justifica la necesidad de emplear algoritmos avanzados.\\
+Tradicionalmente, muchas plataformas han empleado reglas heurísticas o sistemas de filtrado simples basados en coincidencias directas. Estos enfoques presentan limitaciones evidentes, especialmente en escenarios donde las interacciones entre variables son no lineales y complejas: no capturan interacciones complejas, no aprenden patrones implícitos y carecen de transparencia. A diferencia de una regla heurística simple que podría asumir erróneamente que dos personas con la misma \textit{ambición profesional} son compatibles, un modelo de inteligencia artificial puede descubrir \textbf{patrones latentes}. Por ejemplo, identificar que dos personas con niveles opuestos de \textit{espontaneidad} pueden ser altamente compatibles si comparten el mismo \textit{lenguaje del amor}. Esta capacidad de capturar interacciones no lineales justifica la necesidad de emplear algoritmos avanzados.\\
 
 El dataset seleccionado para este proyecto, \textit{“Cupid’s Algorithm”}~\cite{dataset_cupid}, contiene información estructurada sobre pares de individuos (Person A – Person B), incluyendo:
 
@@ -26,15 +26,33 @@ El dataset seleccionado para este proyecto, \textit{“Cupid’s Algorithm”}~\
 
 La presencia de estas variables permite abordar el problema desde una \textbf{perspectiva supervisada}, donde la compatibilidad observada actúa como señal objetivo para el aprendizaje.
 
-Desde el punto de vista formal, el problema puede plantearse como un problema de \textbf{clasificación binaria}~\cite{geron2019hands}. Cada par de individuos queda caracterizado por un conjunto de variables numéricas y categóricas que describen sus atributos individuales. El sistema debe aprender una función:
+Desde el punto de vista formal, el problema puede plantearse como un problema de 
+\textbf{clasificación binaria}~\cite{geron2019hands}. Cada par de individuos queda 
+caracterizado por un conjunto de variables numéricas y categóricas que describen 
+sus atributos individuales.
 
-$$f(X_A, X_B) = P(\text{compatible} = 1)$$
+Sea $X \in \mathbb{R}^n$ el vector de características construido a partir de las 
+variables de ambos individuos. El sistema debe aprender una función parametrizada:
 
-Donde $X_A$ y $X_B$ representan los vectores de características (demográficas y psicológicas) de los individuos A y B.\\
+\[
+f_\theta : \mathbb{R}^n \rightarrow [0,1]
+\]
+
+tal que:
+
+\[
+\hat{y} = f_\theta(X) = P(Y=1 \mid X)
+\]
+
+donde $Y=1$ indica compatibilidad entre los individuos.
+
+De este modo, el modelo estima la probabilidad de que un determinado par 
+de individuos sea compatible, en función de las interacciones existentes 
+entre sus características demográficas, profesionales y psicológicas.
 
 Alternativamente, el problema puede formularse como una regresión (utilizando $compatibility\_score$) o como una predicción de duración (empleando $relationship\_longe$). No obstante, en este proyecto se delimita el alcance principal al problema de clasificación binaria, al tratarse de una formulación clara, evaluable y directamente alineada con aplicaciones reales de \textit{matching}.\\
 
-El sistema no debe limitarse a generar una predicción numérica, sino que debe concebirse como un \textbf{sistema de inteligencia artificial integrable} en un entorno software real. Esto implica que el modelo debe ser reproducible, evaluable mediante métricas adecuadas y \textit{potencialmente explicable}, de manera que las decisiones puedan ser comprendidas por responsables de producto y desarrolladores de la plataforma.\\
+El sistema no debe limitarse a generar una predicción numérica, sino que debe concebirse como un \textbf{sistema de inteligencia artificial integrable} en un entorno software real. Esto implica que el modelo debe ser reproducible, evaluable mediante métricas adecuadas y \textit{explicable}, dado que en sistemas que influyen en decisiones sociales la interpretabilidad resulta fundamental para evitar modelos opacos o de tipo ``caja negra''
 
 En consecuencia, el problema queda claramente delimitado: a partir de datos estructurados que describen características personales, profesionales y psicológicas de dos individuos, se busca diseñar un sistema de inteligencia artificial capaz de predecir de forma \textbf{objetiva, consistente y explicable} su compatibilidad relacional, concebido como un componente integrable dentro de una arquitectura software más amplia.
 
@@ -61,6 +79,17 @@ Para alcanzar el objetivo general propuesto, se establecen los siguientes \textb
 
 De este modo, el proyecto no se concibe como un simple ejercicio de modelado predictivo, sino como el desarrollo completo de un \textbf{sistema de inteligencia artificial entendido como producto tecnológico}, recorriendo todas las fases de su ciclo de vida.
 
+La Figura \ref{fig:objetivos_coremp} resume el flujo metodológico seguido en el
+desarrollo del sistema CORE-MP.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\textwidth]{Pictures/Objetivos.png}
+\caption{Flujo metodológico del sistema CORE-MP desde la definición del problema hasta el análisis de viabilidad.}
+\label{fig:objetivos_coremp}
+\end{figure}
+
+
 \section{Determinación del alcance}
 
 En esta sección se define el alcance del proyecto a desarrollar en la asignatura, prestando especial atención a los componentes clave que delimitan un sistema de inteligencia artificial concebido como producto: \textbf{planificación temporal, organización del equipo, viabilidad económica y valor generado}.\\
@@ -81,23 +110,20 @@ Finalmente, la octava semana estará dedicada a la \textbf{validación y el aná
 
 El desarrollo del sistema \textbf{CORE-MP} se lleva a cabo mediante la colaboración de un equipo técnico formado por cuatro integrantes. Para garantizar el éxito del proyecto y simular un entorno profesional realista, se han definido perfiles con responsabilidades claramente delimitadas, alineadas con los roles habituales en el desarrollo de productos basados en inteligencia artificial.\\
 
-\textbf{Persona 1. Rol principal: Product Manager y Analista de Negocio.} Dado que el equipo no cuenta de forma nativa con un experto de dominio puro en psicología relacional, este integrante asume un rol híbrido fundamental. Su responsabilidad es actuar como puente entre el desarrollo técnico y los objetivos funcionales del proyecto. Se encarga de comprender a fondo la naturaleza de los datos disponibles, definir qué variables tienen sentido lógico agrupar o comparar, y establecer los umbrales de éxito del sistema. Además, evalúa si los resultados del modelo y su explicabilidad son coherentes y aportan valor real para una hipotética plataforma de \textit{matching}, validando el producto desde la perspectiva del usuario final.\\
+\textbf{Óscar Domínguez Ocaña. Rol principal: Product Manager y Analista de Negocio.} Dado que el equipo no cuenta de forma nativa con un experto de dominio puro en psicología relacional, este integrante asume un rol híbrido fundamental. Su responsabilidad es actuar como puente entre el desarrollo técnico y los objetivos funcionales del proyecto. Se encarga de comprender a fondo la naturaleza de los datos disponibles, definir qué variables tienen sentido lógico agrupar o comparar, y establecer los umbrales de éxito del sistema. Además, evalúa si los resultados del modelo y su explicabilidad son coherentes y aportan valor real para una hipotética plataforma de \textit{matching}, validando el producto desde la perspectiva del usuario final.\\
 
-\textbf{Persona 2. Rol principal: Analista de Datos (Data Analyst / Data Engineer).} Este integrante asume la responsabilidad crítica del procesamiento, limpieza y transformación de los datos procedentes del dataset original. Su trabajo abarca desde la exploración estadística inicial hasta la generación de un conjunto de datos consistente y estructurado, aplicando técnicas de ingeniería de características para crear métricas de similitud entre los perfiles. Este rol es la base sobre la que se asienta todo el proyecto, ya que la calidad de las predicciones dependerá directamente de la robustez de los datos preparados en esta fase.\\
+\textbf{José Alberto Seco Sánchez-Camacho. Rol principal: Analista de Datos (Data Analyst / Data Engineer).} Este integrante asume la responsabilidad crítica del procesamiento, limpieza y transformación de los datos procedentes del dataset original. Su trabajo abarca desde la exploración estadística inicial hasta la generación de un conjunto de datos consistente y estructurado, aplicando técnicas de ingeniería de características para crear métricas de similitud entre los perfiles. Este rol es la base sobre la que se asienta todo el proyecto, ya que la calidad de las predicciones dependerá directamente de la robustez de los datos preparados en esta fase.\\
 
-\textbf{Persona 3. Rol principal: Ingeniero de Machine Learning (ML Engineer).} Este perfil es el responsable del diseño metodológico del sistema desde el punto de vista del modelado predictivo. Sus tareas incluyen la selección de los algoritmos de clasificación más adecuados, el entrenamiento de los modelos, el ajuste de hiperparámetros y la evaluación exhaustiva mediante métricas técnicas (como F1-Score o ROC-AUC). Asimismo, asume la responsabilidad de aplicar técnicas de interpretabilidad al modelo seleccionado, facilitando que el resto del equipo comprenda cómo interactúan los rasgos de personalidad en las predicciones finales.\\
+\textbf{José Manuel Bastante Rodríguez. Rol principal: Ingeniero de Machine Learning (ML Engineer).} Este perfil es el responsable del diseño metodológico del sistema desde el punto de vista del modelado predictivo. Sus tareas incluyen la selección de los algoritmos de clasificación más adecuados, el entrenamiento de los modelos, el ajuste de hiperparámetros y la evaluación exhaustiva mediante métricas técnicas (como F1-Score o ROC-AUC). Asimismo, asume la responsabilidad de aplicar técnicas de interpretabilidad al modelo seleccionado, facilitando que el resto del equipo comprenda cómo interactúan los rasgos de personalidad en las predicciones finales.\\
 
-\textbf{Persona 4. Rol principal: Ingeniero de Integración y MLOps (ML Systems Engineer).} Su responsabilidad principal es garantizar que el proyecto no se limite a un experimento aislado en un cuaderno de programación, sino que se convierta en un producto de software funcional. Sus labores incluyen la serialización y versionado del modelo entrenado, así como el diseño y desarrollo de la API REST que servirá las predicciones. Este integrante se asegura de que la arquitectura del sistema sea robusta y esté preparada para recibir peticiones de emparejamiento como un microservicio independiente.\\
+\textbf{Raul Bernalte Sánchez. Rol principal: Ingeniero de Integración y MLOps (ML Systems Engineer).} Su responsabilidad principal es garantizar que el proyecto no se limite a un experimento aislado en un cuaderno de programación, sino que se convierta en un producto de software funcional. Sus labores incluyen la serialización y versionado del modelo entrenado, así como el diseño y desarrollo de la API REST que servirá las predicciones. Este integrante se asegura de que la arquitectura del sistema sea robusta y esté preparada para recibir peticiones de emparejamiento como un microservicio independiente.\\
 
 Esta estructura organizativa garantiza que se cubran todas las necesidades del ciclo de vida de un sistema de IA concebido como producto, desde la conceptualización del negocio hasta su despliegue técnico.
 
 \subsection{Delimitación funcional del sistema}
-El alcance funcional del proyecto se limita a:
-\begin{itemize}
-    \item Predicción binaria de compatibilidad ($compatible$).
-    \item Uso exclusivo del dataset \textit{Cupid’s Algorithm}.
-    \item Desarrollo de una API REST básica para predicción y evaluación \textit{offline}.
-\end{itemize}
+El sistema CORE-MP se limita funcionalmente al desarrollo de un modelo de clasificación binaria capaz de predecir la variable ($compatible$) a partir de las características estructuradas de dos individuos. El alcance del sistema contempla exclusivamente el uso del dataset \textit{Cupid’s Algorithm} como fuente de datos, sin integración con bases de datos externas ni incorporación de datos en tiempo real.
+
+El sistema será desplegado como un servicio REST académico que permita realizar predicciones a partir de nuevas entradas estructuradas. La evaluación del modelo se realizará en entorno \textit{offline} mediante métricas estándar de clasificación, sin validación en una plataforma real de usuarios.
 
 Quedan explícitamente fuera del alcance:
 \begin{itemize}
@@ -105,24 +131,110 @@ Quedan explícitamente fuera del alcance:
     \item Implementación de un sistema de recomendación Top-K a gran escala.
     \item Despliegue en entorno \textit{cloud} productivo final.
 \end{itemize}
-    
+
 \subsection{Viabilidad y estimación del ROI}
-Para estimar la viabilidad económica del sistema se plantean los siguientes supuestos:
+
+Además de evaluar el rendimiento técnico del sistema, resulta necesario analizar 
+si el desarrollo de la solución propuesta puede generar un valor suficiente como 
+para justificar los recursos invertidos en su implementación. En proyectos de 
+inteligencia artificial aplicados a productos digitales, esta evaluación suele 
+realizarse mediante una estimación aproximada del retorno de la inversión 
+(\textit{Return on Investment}, ROI).
+
+Dado que el presente proyecto se desarrolla en un contexto académico y no se 
+dispone de información económica real de una empresa concreta, el análisis se 
+realiza utilizando supuestos razonables que permiten aproximar el orden de 
+magnitud de los costes y beneficios potenciales.
+
+Para estimar el coste de desarrollo del sistema CORE-MP se consideran los 
+siguientes parámetros:
+
 \begin{itemize}
-    \item Equipo técnico: 4 personas (desarrollo).
-    \item Dedicación media: 8 horas semanales por persona durante 8 semanas.
-    \item Coste medio por hora: 40 €.
+    \item Tamaño del equipo de desarrollo: 4 personas.
+    \item Dedicación media por integrante: 5 horas semanales.
+    \item Duración del proyecto: 12 semanas.
+    \item Coste medio estimado por hora de trabajo técnico: 40 euros.
 \end{itemize}
 
-\textbf{Horas y coste total estimados:}
-$$ \text{Horas totales} = 4 \text{ personas} \times 8 \text{ h/semana} \times 8 \text{ semanas} = 256 \text{ horas} $$
-$$ \text{Coste total} = 256 \text{ horas} \times 40 \text{ \euro/hora} = 10.240 \text{ \euro} $$
+A partir de estos valores se puede estimar el esfuerzo total invertido en el 
+proyecto:
 
-Un sistema de predicción de compatibilidad puede generar beneficios mediante el incremento de emparejamientos exitosos y la reducción del abandono de usuarios. Si el sistema generara un beneficio acumulado conservador de 15.000 € en un periodo de uso prolongado, el retorno de la inversión sería:
+\[
+\text{Horas totales} = 4 \times 5 \times 12 = 240 \text{ horas}
+\]
 
-$$ ROI = \frac{\text{Beneficio} - \text{Coste}}{\text{Coste}} = \frac{15000 - 10240}{10240} = 0.46 $$
+\[
+\text{Coste total} = 240 \times 40 = 9.600 \text{ euros}
+\]
 
-Es decir, un \textbf{46\% de retorno estimado}, lo que indica una clara viabilidad económica.
+Este coste engloba las diferentes fases del desarrollo del sistema: análisis del 
+problema, exploración y preparación del conjunto de datos, diseño y entrenamiento 
+de los modelos de aprendizaje automático, evaluación de resultados, análisis de 
+explicabilidad y desarrollo del servicio REST que permite integrar el sistema en 
+una arquitectura software.
+
+En cuanto a los beneficios potenciales, el sistema CORE-MP podría aportar valor 
+a una plataforma digital de relaciones en distintos niveles. Entre los principales 
+beneficios se pueden destacar:
+
+\begin{itemize}
+    \item Mejora de la calidad de las recomendaciones de emparejamiento.
+    \item Incremento potencial de la satisfacción y retención de usuarios.
+    \item Automatización del análisis de compatibilidad entre perfiles.
+    \item Posibilidad de reutilizar el sistema como base para futuros motores de 
+    recomendación más avanzados.
+    \item Generación de valor estratégico al incorporar capacidades de inteligencia 
+    artificial en la plataforma.
+\end{itemize}
+
+Para estimar el beneficio económico de forma conservadora, se considera un 
+escenario hipotético en el que la mejora en la calidad de los emparejamientos 
+incrementa la retención de usuarios de la plataforma. Suponiendo una plataforma 
+con aproximadamente 2.000 usuarios activos y un ingreso medio anual de 10 euros 
+por usuario, una mejora del 10\% en la retención podría generar alrededor de 
+2.000 euros adicionales al año. 
+
+Si el sistema se reutiliza durante varios ciclos del producto, el valor acumulado 
+podría situarse en torno a 10.000 euros. Considerando además el valor tecnológico 
+derivado de reutilizar el sistema como base para futuros servicios de recomendación, 
+se puede estimar de forma conservadora un beneficio total aproximado de 
+13.000 euros.
+
+Con estos valores, el retorno de la inversión se calcula como:
+
+\[
+ROI = \frac{\text{Beneficio} - \text{Coste}}{\text{Coste}}
+\]
+
+\[
+ROI = \frac{13000 - 9600}{9600} = 0.35
+\]
+
+Es decir, un retorno aproximado del \textbf{35\%}.
+
+Este resultado indica que, incluso bajo supuestos conservadores, el sistema 
+CORE-MP podría recuperar la inversión inicial y generar valor adicional. 
+Además, este cálculo no contempla posibles beneficios adicionales como la 
+comercialización del sistema, la ampliación de funcionalidades o su reutilización 
+en otros contextos de recomendación, lo que sugiere que el valor real del sistema 
+podría ser aún mayor.
+% \subsection{Viabilidad y estimación del ROI}
+% Para estimar la viabilidad económica del sistema se plantean los siguientes supuestos:
+% \begin{itemize}
+%     \item Equipo técnico: 4 personas (desarrollo).
+%     \item Dedicación media: 5 horas semanales por persona durante 14 semanas.
+%     \item Coste medio por hora: 40 €.
+% \end{itemize}
+
+% \textbf{Horas y coste total estimados:}
+% $$ \text{Horas totales} = 4 \text{ personas} \times 5 \text{ h/semana} \times 14 \text{ semanas} = 280 \text{ horas} $$
+% $$ \text{Coste total} = 280 \text{ horas} \times 40 \text{ \euro/hora} = 11.200 \text{ \euro} $$
+
+% Un sistema de predicción de compatibilidad puede generar beneficios mediante el incremento de emparejamientos exitosos y la reducción del abandono de usuarios. Si el sistema generara un beneficio acumulado conservador de 15.000 € en un periodo de uso prolongado, el retorno de la inversión sería:
+
+% $$ ROI = \frac{\text{Beneficio} - \text{Coste}}{\text{Coste}} = \frac{15000 - 11200}{11200} = 0.034 $$
+
+% Es decir, un \textbf{34\% de retorno estimado}, lo que indica una clara viabilidad económica.
 
 \subsection{Valor}
 
