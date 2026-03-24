@@ -1,4 +1,182 @@
-\chapter{Chapter 2}
 
-\section{Section}
+\chapter{Los datos: origen, descripción y análisis}
+\label{cap:datos}
 
+\section{Introducción}
+\label{sec:introduccion_datos}
+En este capítulo se detalla el conjunto de datos utilizado para el desarrollo e integración del sistema de Inteligencia Artificial del proyecto \textit{Cupid Algorithm}. A diferencia de los problemas de clasificación tradicional, donde se perfila a un individuo de forma aislada, el presente reto analítico requiere el estudio de una \textbf{diada} (la pareja concebida como unidad matemática). 
+
+El objetivo principal de esta sección es comprender cómo interactúan y se correlacionan los perfiles psicológicos y demográficos, establecer las métricas formales de éxito y definir los procesos de transformación de datos (\textit{Feature Engineering}) necesarios para alimentar el modelo predictivo. Durante el desarrollo del análisis se abordará el debate psicológico subyacente sobre si la afinidad relacional se fundamenta en la complementariedad (polos opuestos) o en la homofilia (similitud), justificando empíricamente las decisiones algorítmicas adoptadas.
+
+\section{Fuentes, origen y tamaño de los datos}
+\label{sec:fuentes_datos}
+La fuente de información para realizar esta investigación es \texttt{cupid\_algorithm\_dataset.csv}. Este \textit{dataset} emula el entorno operativo de una aplicación de emparejamiento (\textit{matchmaking}) a gran escala, registrando interacciones reales entre usuarios.
+
+En términos de volumetría, la muestra consta de \textbf{100.000 observaciones} (pares evaluados) y 30 características originales. La magnitud y completitud del conjunto de datos garantizan la representatividad estadística necesaria para entrenar modelos de aprendizaje automático de alta complejidad, mitigando el riesgo de sobreajuste (\textit{overfitting}) temprano. Asimismo, la validación de calidad del dato evidenció una estructura robusta: la inspección inicial confirmó la ausencia total de valores nulos o faltantes, lo cual permite prescindir de técnicas de imputación sintética que pudieran introducir sesgos artificiales en las distribuciones originales.
+
+\section{Inventario de datos}
+\label{sec:inventario_datos}
+La base de datos presenta una arquitectura simétrica, registrando idéntica batería de atributos tanto para el ``Individuo A'' como para el ``Individuo B'' de cada emparejamiento. Estas variables se agrupan formalmente en las siguientes dimensiones:
+
+\begin{itemize}
+    \item \textbf{Dimensión Demográfica y Sociológica:} Contiene atributos descriptivos tales como la edad, el nivel educativo (modelado como variable ordinal), la ubicación geográfica o entorno de residencia (\texttt{location}) y el campo profesional o sector productivo al que pertenecen (\texttt{career\_field}).
+    
+    \item \textbf{Dimensión Psicológica y Conductual:} Agrupa valores normalizados en el rango [0, 1] que cuantifican la ambición profesional, la expresividad emocional, la espontaneidad y el cronotipo de cada sujeto. Resulta especialmente relevante la inclusión del modelo de los Cinco Grandes (\textit{Big Five}): apertura a la experiencia (\texttt{openness}), extraversión, amabilidad (\texttt{agreeableness}) y responsabilidad (\texttt{conscientiousness}). Adicionalmente, se tipifica el estilo afectivo de los individuos mediante su lenguaje del amor principal.
+    
+    \item \textbf{Variables Objetivo (\textit{Targets}):} Representan la verdad terreno (\textit{ground truth}) con la que se evaluará el desempeño del sistema:
+    \begin{itemize}
+        \item \texttt{compatibility\_score}: Puntuación continua que evalúa la calidad y viabilidad general del emparejamiento (problema de regresión).
+        \item \texttt{compatible}: Etiqueta binaria de clasificación donde se codifica el éxito (1) o el fracaso (0) de la relación.
+        \item \texttt{relationship\_longevity\_months}: Duración efectiva de la relación expresada en meses.
+    \end{itemize}
+\end{itemize}
+
+Para facilitar la comprensión global de la estructura base del sistema, la Tabla~\ref{tab:inventario_datos} detalla el diccionario de datos original. Se listan las variables de manera genérica, asumiendo que el modelo procesa las características tanto del individuo A (\texttt{a\_*}) como del individuo B (\texttt{b\_*}).
+
+\begin{table}[H]
+\centering
+\footnotesize % <-- Comando añadido para reducir el tamaño de la fuente de la tabla
+\begin{tabular}{llp{10.5cm}}
+\hline
+\textbf{Variable} & \textbf{Tipo} & \textbf{Descripción} \\ \hline
+\texttt{pair\_id} & Entero & Identificador único (1 a 100,000) de cada pareja evaluada. Actúa como clave primaria. \\
+\texttt{age} & Numérica & Edad cronológica (18-55). Se emplea para calcular la brecha de edad; diferencias superiores a 15 años penalizan el \textit{score}. \\
+\texttt{education} & Ordinal & Nivel educativo (1: Secundaria - 5: Doctorado). Correlaciona positivamente con la ambición profesional. \\
+\texttt{location} & Categórica & Entorno de residencia (Urbano, Suburbano, Rural). Las coincidencias suman positivamente al evaluar la proximidad. \\
+\texttt{career\_field} & Categórica & Sector profesional (10 industrias). Su compatibilidad cruzada se evalúa internamente mediante una matriz de sinergia. \\
+\texttt{career\_ambition} & Num. [0,1] & Impulso de crecimiento profesional. La proximidad de valores entre la pareja indica alineación de proyectos de vida. \\
+\texttt{openness} & Num. [0,1] & Rasgo \textit{Big Five}: apertura a la experiencia, ideas nuevas y creatividad. \\
+\texttt{extraversion} & Num. [0,1] & Rasgo \textit{Big Five}: nivel de extroversión, sociabilidad, energía y asertividad social. \\
+\texttt{agreeableness} & Num. [0,1] & Rasgo \textit{Big Five}: amabilidad, tendencia a la compasión, empatía y voluntad de compromiso. \\
+\texttt{conscientiousness} & Num. [0,1] & Rasgo \textit{Big Five}: nivel de organización, disciplina y responsabilidad personal. \\
+\texttt{chronotype} & Num. [0,1] & Preferencia de estilo de vida que abarca desde perfiles nocturnos hasta matutinos. \\
+\texttt{spontaneity} & Num. [0,1] & Orientación vital entre la planificación estructurada (0) y el espíritu libre (1). \\
+\texttt{emotional\_express...} & Num. [0,1] & Estilo de comunicación: facilidad y franqueza al expresar y compartir sentimientos íntimos. \\
+\texttt{love\_language} & Categórica & Lenguaje del amor principal (Palabras de afirmación, Actos de servicio, Regalos, Tiempo de calidad o Contacto físico). \\
+\texttt{compatibility\_score}& Continua & \textbf{Target:} Puntuación predictiva agregada (0-100) que determina la compatibilidad base de la pareja. \\
+\texttt{compatible} & Binaria & \textbf{Target:} Éxito relacional (1) o fracaso (0). Umbral original establecido en >65 de \textit{score}. \\
+\texttt{relationship\_lon...} & Entero & \textbf{Target:} Longevidad de la relación expresada en meses (0-120). Útil para problemas de regresión o supervivencia. \\ \hline
+\end{tabular}
+\caption{Inventario de datos original: Diccionario de variables}
+\label{tab:inventario_datos}
+\end{table}
+
+Para ilustrar de forma tangible esta arquitectura simétrica, las Figuras~\ref{fig:registros_a} y~\ref{fig:registros_b} muestran, de manera independiente, los perfiles de los usuarios vinculados que conforman los primeros 24 registros del conjunto de datos. Como se puede observar, ambos sujetos (Individuo A e Individuo B) mantienen de forma estricta el mismo identificador de pareja (\texttt{pair\_id}). Esta restricción relacional es la que permite al sistema procesar la interacción de ambos como una unidad indisoluble a la hora de realizar la inferencia.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{Pictures/24_records_a.png}
+  \caption{Extracto de los datos del Individuo A correspondientes a los 24 primeros emparejamientos evaluados. Se aprecian las variables demográficas y las métricas del modelo \textit{Big Five}.}
+  \label{fig:registros_a}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{Pictures/24_records_b.png}
+  \caption{Extracto de los datos del Individuo B correspondientes a los 24 primeros emparejamientos. Nótese la obligatoria correspondencia del campo \texttt{pair\_id} con el Individuo A para posibilitar el emparejamiento.}
+  \label{fig:registros_b}
+\end{figure}
+
+Más allá de las características predictoras de cada usuario individual, el sistema evalúa el resultado de la diada mediante sus variables objetivo. Siguiendo con la muestra de los 24 primeros registros analizados, la Figura~\ref{fig:ejemplo_targets} expone visualmente los campos \texttt{compatibility\_score}, \texttt{compatible} y \texttt{relationship\_longevity\_months} para estas interacciones. En su conjunto, estas tres métricas son las encargadas de definir empíricamente qué tan ``satisfactoria'' ha resultado la relación, constituyendo la verdad terreno sobre la cual el algoritmo optimizará sus predicciones.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.50\textwidth]{Pictures/24_records_comp.png}
+  \caption{Representación de las variables objetivo que definen el nivel de satisfaction y viabilidad de la relación, correspondientes a los 24 primeros registros del conjunto de datos.}
+  \label{fig:ejemplo_targets}
+\end{figure}
+
+\section{Análisis de los datos}
+\label{sec:analisis_datos}
+El Análisis Exploratorio de Datos (EDA) se ha enfocado en modelar las dinámicas de interacción intra-pareja para identificar patrones predictivos viables y visualizar la importancia de las diferencias de carácter. Para ello se ejecutó un estudio sistemático apoyado en herramientas de visualización de datos avanzadas.
+
+\subsection{Distribuciones de las Variables Objetivo}
+En primera instancia, el análisis univariante comprobó el comportamiento de nuestros objetivos de modelado (\textit{targets}). La Figura~\ref{fig:distribuciones_targets} expone los resultados gráficos de esta inspección. Se reveló que la variable continua \texttt{compatibility\_score} se ajusta a una distribución normal asimétrica, centralizada en puntuaciones medias. 
+
+Respecto a la etiqueta binaria \texttt{compatible}, se detectó un leve desbalance natural en la muestra: un 43\% de emparejamientos exitosos frente a un 57\% de fracasos (véase el gráfico central de barras). Dado que este desbalance es moderado y refleja proporciones realistas, se concluyó que la aplicación de técnicas algorítmicas de sobremuestreo sintético (como SMOTE) no resultaría estrictamente necesaria para los modelos iniciales basados en ensambles de árboles.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{Pictures/distribuciones_targets.png}
+  \caption{Distribución de las variables objetivo: densidad del \textit{score} de compatibilidad (izquierda), proporción de éxito binario (centro) y distribución de longevidad en meses (derecha).}
+  \label{fig:distribuciones_targets}
+\end{figure}
+
+\subsection{Afinidad e Ingeniería de Características}
+El análisis bivariable demostró empíricamente la prevalencia de la \textbf{homofilia} como el principal motor de compatibilidad estadística. Es decir, los usuarios tienden a consolidar relaciones exitosas cuando comparten características clave.
+
+Un ejemplo claro de este comportamiento se visualiza en la Figura~\ref{fig:matriz_lenguajes_amor}, que muestra la matriz de contingencia normalizada al cruzar los lenguajes del amor del Individuo A y el Individuo B. Las celdas de la diagonal principal (donde ambos comparten el mismo lenguaje) presentan tasas de éxito notablemente superiores, reafirmando empíricamente que compartir el mismo estilo afectivo incrementa la viabilidad matemática de la pareja.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.67\textwidth]{Pictures/matriz_lenguajes_amor.png}
+  \caption{Matriz de contingencia térmica (\textit{Heatmap}): Tasa de compatibilidad porcentual según el cruce de los lenguajes del amor entre ambos individuos.}
+  \label{fig:matriz_lenguajes_amor}
+\end{figure}
+
+Con el fin de trasladar estas relaciones geométricas y patrones categóricos a los algoritmos de \textit{Machine Learning}, se ejecutó un proceso profundo de Ingeniería de Características (\textit{Feature Engineering}):
+
+\begin{enumerate}
+    \item \textbf{Distancia Euclidiana de Personalidad:} Se procedió a calcular la norma euclidiana vectorial entre el conjunto de rasgos psicológicos (\textit{Big Five} y expresividad emocional) de ambos individuos. Esta transformación matemática consolida múltiples variables en un predictor continuo robusto que penaliza las divergencias extremas de carácter.
+    \item \textbf{Disimilitud Continua:} Se derivaron nuevas métricas calculando las diferencias absolutas (brechas) en atributos numéricos clave, tales como la edad, la ambición profesional y el cronotipo.
+    \item \textbf{Interacciones Categóricas (Efecto Espejo):} Las coincidencias en variables nominales fueron codificadas como indicadores booleanos. El estudio determinó que presentar coincidencias exactas en estas variables incrementa notablemente la probabilidad de éxito. Por ejemplo, compartir el mismo campo profesional (\texttt{match\_career} = 1) eleva la tasa de compatibilidad promedio hasta el 53.7\%.
+\end{enumerate}
+
+Las características derivadas se han consolidado en la Tabla~\ref{tab:diccionario_pesos}, clasificadas en función de si su impacto (peso o correlación) resulta positivo o negativo para el algoritmo predictivo.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{llp{8.5cm}}
+\hline
+\textbf{Característica (Feature)} & \textbf{Impacto} & \textbf{Descripción y Justificación Técnica} \\ \hline
+\texttt{match\_career} & Positivo (+) & Coincidencia exacta en el sector profesional. Correlaciona positivamente con el éxito relacional. \\
+\texttt{match\_love\_language} & Positivo (+) & Compartir el lenguaje del amor favorece la complementariedad y entendimiento afectivo. \\
+\texttt{personality\_distance} & Negativo (-) & Distancia euclidiana en el \textit{Big Five}. A mayor distancia geométrica, disminuye la probabilidad de éxito. \\
+\texttt{diff\_career\_ambition} & Negativo (-) & Brecha absoluta en ambición profesional. Las asimetrías severas actúan como factor fuertemente disruptivo. \\ \hline
+\end{tabular}
+\caption{Diccionario de variables interactivas: características con pesos positivos y negativos}
+\label{tab:diccionario_pesos}
+\end{table}
+
+Para asegurar una integración óptima en la futura arquitectura de software y prevenir la transferencia indebida de información (\textit{Data Leakage}), estas transformaciones se orquestaron a través de la clase \texttt{ColumnTransformer} (perteneciente a la librería \textit{scikit-learn}). Este \textit{pipeline} aplica una estandarización a las variables continuas y una codificación \textit{One-Hot} a las categóricas, dejando el conjunto preparado para la etapa de inferencia y modelado.
+
+\section{Evaluación del rendimiento y Métricas}
+\label{sec:evaluacion_metricas}
+En el marco de la puesta en producción del algoritmo \textit{Cupid} (integrado como motor principal de una aplicación móvil o web), el sistema no predecirá el éxito de una pareja de manera aislada. Su función operativa será proveer al usuario un \textbf{feed o ranking ordenado de candidatos potenciales}. Por consiguiente, evaluar el sistema empleando exclusivamente métricas de clasificación convencionales (como la Exactitud o \textit{Accuracy}) resulta metodológicamente insuficiente, pues ignoraría la posición relativa de los aciertos.
+
+Para subsanar esto, la evaluación formal se alineará con el estado del arte de los Sistemas de Recomendación, adoptando métricas que ponderan y priorizan el ordenamiento correcto de los elementos. A continuación se formalizan matemáticamente las métricas de negocio seleccionadas:
+
+\begin{itemize}
+    \item \textbf{Mean Reciprocal Rank (MRR):} Esta métrica evalúa la capacidad del sistema para situar un caso de éxito lo más alto posible en el ranking. Computa el recíproco de la posición del \textit{primer} candidato verdaderamente compatible en la lista recomendada. Se define matemáticamente como:
+    
+    \begin{equation}
+        MRR = \frac{1}{|U|} \sum_{i=1}^{|U|} \frac{1}{rank_i}
+    \end{equation}
+    
+    Donde:
+    \begin{itemize}
+        \item $|U|$ es el número total de usuarios (o consultas) evaluados.
+        \item $rank_i$ representa la posición en la lista devuelta del \textit{primer} candidato verdaderamente compatible para el usuario $i$.
+    \end{itemize}
+    
+    Si el primer acierto se ubica en la primera posición, el MRR es 1.0; si recae en la tercera posición, el valor es 0.33. Su maximización asegura que el usuario final reciba valor de manera inmediata, minimizando la necesidad de realizar \textit{scroll} en la interfaz.
+
+    \item \textbf{Mean Average Precision (MAP):} Complementando al MRR, el MAP evalúa la calidad, consistencia y pureza del ranking en profundidad. Computa la media de la Precisión Media (\textit{Average Precision}, AP) obtenida para el conjunto de usuarios, expresada mediante la siguiente fórmula:
+
+    \begin{equation}
+        MAP = \frac{1}{|U|} \sum_{u=1}^{|U|} \left( \frac{1}{m_u} \sum_{k=1}^{K} P_u(k) \cdot rel_u(k) \right)
+    \end{equation}
+
+    Donde:
+    \begin{itemize}
+        \item $|U|$ es el número total de usuarios evaluados.
+        \item $m_u$ es el número total de candidatos verdaderamente compatibles que existen para el usuario $u$.
+        \item $K$ es la longitud máxima de la lista de recomendación mostrada (\textit{Top K}).
+        \item $P_u(k)$ es la precisión calculada hasta la posición $k$ del ranking (aciertos acumulados hasta el elemento $k$ divididos por $k$).
+        \item $rel_u(k)$ es una función indicadora (\textit{indicator function}) que vale 1 si el candidato en la posición $k$ es compatible, y 0 en caso contrario.
+    \end{itemize}
+    
+    Esta métrica es esencial para el proyecto, ya que penaliza de forma severa si el algoritmo intercala recomendaciones incompatibles (ruido) entre perfiles altamente compatibles dentro del grupo principal de resultados.
+\end{itemize}
+
+El planteamiento de este esquema de evaluación garantiza que la función de coste y la optimización algorítmica se traduzcan de manera directa en una mejora medible de la experiencia del usuario (UX).
