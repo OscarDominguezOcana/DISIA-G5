@@ -63,32 +63,38 @@
 \newlabel{fig:registros_b}{{3}{17}{Extracto de los datos del Individuo B correspondientes a los 24 primeros emparejamientos. Nótese la obligatoria correspondencia del campo \texttt {pair\_id} con el Individuo A para posibilitar el emparejamiento}{figure.0.3}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Representación de las variables objetivo que definen el nivel de satisfaction y viabilidad de la relación, correspondientes a los 24 primeros registros del conjunto de datos.}}{18}{figure.0.4}\protected@file@percent }
 \newlabel{fig:ejemplo_targets}{{4}{18}{Representación de las variables objetivo que definen el nivel de satisfaction y viabilidad de la relación, correspondientes a los 24 primeros registros del conjunto de datos}{figure.0.4}{}}
-\@writefile{toc}{\contentsline {section}{Análisis de los datos}{18}{section*.15}\protected@file@percent }
-\newlabel{sec:analisis_datos}{{}{18}{Análisis de los datos}{section*.15}{}}
-\@writefile{toc}{\contentsline {subsection}{Distribuciones de las Variables Objetivo}{18}{section*.16}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Distribución de las variables objetivo: densidad del \textit  {score} de compatibilidad (izquierda), proporción de éxito binario (centro) y distribución de longevidad en meses (derecha).}}{19}{figure.0.5}\protected@file@percent }
-\newlabel{fig:distribuciones_targets}{{5}{19}{Distribución de las variables objetivo: densidad del \textit {score} de compatibilidad (izquierda), proporción de éxito binario (centro) y distribución de longevidad en meses (derecha)}{figure.0.5}{}}
-\@writefile{toc}{\contentsline {subsection}{Afinidad e Ingeniería de Características}{19}{section*.17}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Matriz de contingencia térmica (\textit  {Heatmap}): Tasa de compatibilidad porcentual según el cruce de los lenguajes del amor entre ambos individuos.}}{19}{figure.0.6}\protected@file@percent }
-\newlabel{fig:matriz_lenguajes_amor}{{6}{19}{Matriz de contingencia térmica (\textit {Heatmap}): Tasa de compatibilidad porcentual según el cruce de los lenguajes del amor entre ambos individuos}{figure.0.6}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Diccionario de variables interactivas: características con pesos positivos y negativos}}{20}{table.0.2}\protected@file@percent }
-\newlabel{tab:diccionario_pesos}{{2}{20}{Diccionario de variables interactivas: características con pesos positivos y negativos}{table.0.2}{}}
-\@writefile{toc}{\contentsline {section}{Evaluación del rendimiento y Métricas}{21}{section*.18}\protected@file@percent }
-\newlabel{sec:evaluacion_metricas}{{}{21}{Evaluación del rendimiento y Métricas}{section*.18}{}}
-\@writefile{toc}{\contentsline {subsection}{1. Predicción de Compatibilidad Binaria}{21}{section*.19}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{2. Estimación de Longevidad Relacional}{21}{section*.20}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{Análisis de los datos y Detección de Sesgos}{18}{section*.15}\protected@file@percent }
+\newlabel{sec:analisis_datos}{{}{18}{Análisis de los datos y Detección de Sesgos}{section*.15}{}}
+\@writefile{toc}{\contentsline {subsection}{Análisis de Sesgos: Variables Objetivo (Score, Clases y Longevidad)}{18}{section*.16}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Distribución de las variables objetivo: densidad del score (izq.), balance de clases (centro) y longevidad (der.).}}{19}{figure.0.5}\protected@file@percent }
+\newlabel{fig:distribuciones_targets}{{5}{19}{Distribución de las variables objetivo: densidad del score (izq.), balance de clases (centro) y longevidad (der.)}{figure.0.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Distribución de registros según su longevidad agrupada en intervalos de 5 meses. Se aprecia la fuerte caída temprana de las relaciones incompatibles.}}{19}{figure.0.6}\protected@file@percent }
+\newlabel{fig:sesgo_supervivencia_5meses}{{6}{19}{Distribución de registros según su longevidad agrupada en intervalos de 5 meses. Se aprecia la fuerte caída temprana de las relaciones incompatibles}{figure.0.6}{}}
+\@writefile{toc}{\contentsline {subsection}{Análisis de Sesgos Estructurales: Ambición y Brecha de Edad}{20}{section*.17}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Análisis de sesgos estructurales: Afinidad en ambición profesional (izquierda) y diagrama de violín para la diferencia de edad (derecha).}}{20}{figure.0.7}\protected@file@percent }
+\newlabel{fig:sesgos_estructurales}{{7}{20}{Análisis de sesgos estructurales: Afinidad en ambición profesional (izquierda) y diagrama de violín para la diferencia de edad (derecha)}{figure.0.7}{}}
+\@writefile{toc}{\contentsline {subsection}{Análisis de Sesgos de Interacción: Lenguajes del Amor}{20}{section*.18}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Matriz de contingencia térmica (\textit  {Heatmap}): Tasa de compatibilidad porcentual según el cruce de los lenguajes del amor entre ambos individuos.}}{21}{figure.0.8}\protected@file@percent }
+\newlabel{fig:matriz_lenguajes_amor}{{8}{21}{Matriz de contingencia térmica (\textit {Heatmap}): Tasa de compatibilidad porcentual según el cruce de los lenguajes del amor entre ambos individuos}{figure.0.8}{}}
+\@writefile{toc}{\contentsline {subsection}{Ingeniería de Características (\textit  {Feature Engineering})}{21}{section*.19}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Diccionario de variables interactivas: características con pesos positivos y negativos}}{22}{table.0.2}\protected@file@percent }
+\newlabel{tab:diccionario_pesos}{{2}{22}{Diccionario de variables interactivas: características con pesos positivos y negativos}{table.0.2}{}}
+\@writefile{toc}{\contentsline {section}{Evaluación del rendimiento y Métricas}{22}{section*.20}\protected@file@percent }
+\newlabel{sec:evaluacion_metricas}{{}{22}{Evaluación del rendimiento y Métricas}{section*.20}{}}
+\@writefile{toc}{\contentsline {subsection}{1. Predicción de Compatibilidad Binaria}{22}{section*.21}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{2. Estimación de Longevidad Relacional}{23}{section*.22}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{3. Recomendación (Matching óptimo)}{23}{section*.23}\protected@file@percent }
 \abx@aux@nociteall
-\@writefile{toc}{\contentsline {subsection}{3. Recomendación (Matching óptimo)}{22}{section*.21}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{References}{23}{section*.22}\protected@file@percent }
-\abx@aux@page{6}{23}
-\abx@aux@page{7}{23}
-\abx@aux@page{8}{23}
-\abx@aux@page{9}{23}
-\abx@aux@page{10}{23}
+\@writefile{toc}{\contentsline {chapter}{References}{25}{section*.24}\protected@file@percent }
+\abx@aux@page{6}{25}
+\abx@aux@page{7}{25}
+\abx@aux@page{8}{25}
+\abx@aux@page{9}{25}
+\abx@aux@page{10}{25}
 \abx@aux@read@bbl@mdfivesum{A3D4CA6DB2F01BF5CF986B1CFD2F86D8}
 \abx@aux@defaultrefcontext{0}{repo_disia_g5}{nyt/global//global/global/global}
 \abx@aux@defaultrefcontext{0}{dataset_cupid}{nyt/global//global/global/global}
 \abx@aux@defaultrefcontext{0}{geron2019hands}{nyt/global//global/global/global}
 \abx@aux@defaultrefcontext{0}{rakic2024bigfive}{nyt/global//global/global/global}
 \abx@aux@defaultrefcontext{0}{ulb_template}{nyt/global//global/global/global}
-\gdef \@abspage@last{25}
+\gdef \@abspage@last{27}

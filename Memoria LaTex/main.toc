@@ -13,11 +13,13 @@
 \contentsline {section}{Introducción}{14}{section*.12}%
 \contentsline {section}{Fuentes, origen y tamaño de los datos}{14}{section*.13}%
 \contentsline {section}{Inventario de datos}{14}{section*.14}%
-\contentsline {section}{Análisis de los datos}{18}{section*.15}%
-\contentsline {subsection}{Distribuciones de las Variables Objetivo}{18}{section*.16}%
-\contentsline {subsection}{Afinidad e Ingeniería de Características}{19}{section*.17}%
-\contentsline {section}{Evaluación del rendimiento y Métricas}{21}{section*.18}%
-\contentsline {subsection}{1. Predicción de Compatibilidad Binaria}{21}{section*.19}%
-\contentsline {subsection}{2. Estimación de Longevidad Relacional}{21}{section*.20}%
-\contentsline {subsection}{3. Recomendación (Matching óptimo)}{22}{section*.21}%
-\contentsline {chapter}{References}{23}{section*.22}%
+\contentsline {section}{Análisis de los datos y Detección de Sesgos}{18}{section*.15}%
+\contentsline {subsection}{Análisis de Sesgos: Variables Objetivo (Score, Clases y Longevidad)}{18}{section*.16}%
+\contentsline {subsection}{Análisis de Sesgos Estructurales: Ambición y Brecha de Edad}{20}{section*.17}%
+\contentsline {subsection}{Análisis de Sesgos de Interacción: Lenguajes del Amor}{20}{section*.18}%
+\contentsline {subsection}{Ingeniería de Características (\textit {Feature Engineering})}{21}{section*.19}%
+\contentsline {section}{Evaluación del rendimiento y Métricas}{22}{section*.20}%
+\contentsline {subsection}{1. Predicción de Compatibilidad Binaria}{22}{section*.21}%
+\contentsline {subsection}{2. Estimación de Longevidad Relacional}{23}{section*.22}%
+\contentsline {subsection}{3. Recomendación (Matching óptimo)}{23}{section*.23}%
+\contentsline {chapter}{References}{25}{section*.24}%
