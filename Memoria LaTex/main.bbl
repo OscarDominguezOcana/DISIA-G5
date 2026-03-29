@@ -19,6 +19,38 @@
 
 \refsection{0}
   \datalist[entry]{nyt/global//global/global/global}
+    \entry{repo_disia_g5}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=ca8e1b2acb9325e504dcb1fdfcd3f31b}{%
+           family={DISIA-G5},
+           familyi={D\bibinithyphendelim G\bibinitperiod},
+           given={Grupo},
+           giveni={G\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {GitHub}%
+      }
+      \strng{namehash}{ca8e1b2acb9325e504dcb1fdfcd3f31b}
+      \strng{fullhash}{ca8e1b2acb9325e504dcb1fdfcd3f31b}
+      \strng{fullhashraw}{ca8e1b2acb9325e504dcb1fdfcd3f31b}
+      \strng{bibnamehash}{ca8e1b2acb9325e504dcb1fdfcd3f31b}
+      \strng{authorbibnamehash}{ca8e1b2acb9325e504dcb1fdfcd3f31b}
+      \strng{authornamehash}{ca8e1b2acb9325e504dcb1fdfcd3f31b}
+      \strng{authorfullhash}{ca8e1b2acb9325e504dcb1fdfcd3f31b}
+      \strng{authorfullhashraw}{ca8e1b2acb9325e504dcb1fdfcd3f31b}
+      \field{labelalpha}{DIS26}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://github.com/OscarDominguezOcana/DISIA-G5}}
+      \field{note}{Código fuente, Notebooks de análisis de datos y pipeline de Machine Learning}
+      \field{title}{Repositorio del Proyecto DISIA-G5: Cupid Algorithm}
+      \field{year}{2026}
+      \true{nocite}
+    \endentry
     \entry{dataset_cupid}{misc}{}{}
       \name{author}{1}{}{%
         {{hash=25f84553bcd1c1b5134de9f820a94550}{%

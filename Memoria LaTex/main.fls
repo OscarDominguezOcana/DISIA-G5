@@ -1,6 +1,6 @@
-PWD c:\Users\Usuario\OneDrive - Universidad de Castilla-La Mancha\MASTER INTELIGENCIA ARTIFICIAL\2o Cuatrimestre\DESARROLLO E INTEGRACIÓN DE SERVICIOS DE IA\PRÁCTICA\HITO 2\Memoria LaTex
+PWD c:\Users\Usuario\OneDrive - Universidad de Castilla-La Mancha\MASTER INTELIGENCIA ARTIFICIAL\2o Cuatrimestre\DESARROLLO E INTEGRACIÓN DE SERVICIOS DE IA\PRÁCTICA\GIT\DISIA-G5\Memoria LaTex
 INPUT C:\Users\Usuario\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT c:\Users\Usuario\OneDrive - Universidad de Castilla-La Mancha\MASTER INTELIGENCIA ARTIFICIAL\2o Cuatrimestre\DESARROLLO E INTEGRACIÓN DE SERVICIOS DE IA\PRÁCTICA\HITO 2\Memoria LaTex\main.tex
+INPUT c:\Users\Usuario\OneDrive - Universidad de Castilla-La Mancha\MASTER INTELIGENCIA ARTIFICIAL\2o Cuatrimestre\DESARROLLO E INTEGRACIÓN DE SERVICIOS DE IA\PRÁCTICA\GIT\DISIA-G5\Memoria LaTex\main.tex
 OUTPUT main.log
 INPUT .\ULBreport.cls
 INPUT ULBreport.cls
@@ -737,6 +737,11 @@ INPUT .\Pictures\matriz_lenguajes_amor.png
 INPUT C:\Users\Usuario\AppData\Local\Programs\MiKTeX\fonts\vf\public\fourier\futsy.vf
 INPUT C:\Users\Usuario\AppData\Local\Programs\MiKTeX\fonts\tfm\public\fourier\fourier-ms.tfm
 INPUT C:\Users\Usuario\AppData\Local\Programs\MiKTeX\fonts\tfm\public\fourier\fourier-mcl.tfm
+INPUT C:\Users\Usuario\AppData\Local\Programs\MiKTeX\fonts\vf\public\fourier\futmii.vf
+INPUT C:\Users\Usuario\AppData\Local\Programs\MiKTeX\fonts\tfm\public\fourier\fourier-mlit.tfm
+INPUT C:\Users\Usuario\AppData\Local\Programs\MiKTeX\fonts\tfm\public\fourier\fourier-ml.tfm
+INPUT C:\Users\Usuario\AppData\Local\Programs\MiKTeX\fonts\tfm\public\fourier\futr8r.tfm
+INPUT C:\Users\Usuario\AppData\Local\Programs\MiKTeX\fonts\tfm\public\fourier\futri8r.tfm
 INPUT main.aux
 INPUT .\main.out
 INPUT .\main.out

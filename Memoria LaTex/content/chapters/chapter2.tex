@@ -142,41 +142,63 @@ Para asegurar una integración óptima en la futura arquitectura de software y p
 
 \section{Evaluación del rendimiento y Métricas}
 \label{sec:evaluacion_metricas}
-En el marco de la puesta en producción del algoritmo \textit{Cupid} (integrado como motor principal de una aplicación móvil o web), el sistema no predecirá el éxito de una pareja de manera aislada. Su función operativa será proveer al usuario un \textbf{feed o ranking ordenado de candidatos potenciales}. Por consiguiente, evaluar el sistema empleando exclusivamente métricas de clasificación convencionales (como la Exactitud o \textit{Accuracy}) resulta metodológicamente insuficiente, pues ignoraría la posición relativa de los aciertos.
-
-Para subsanar esto, la evaluación formal se alineará con el estado del arte de los Sistemas de Recomendación, adoptando métricas que ponderan y priorizan el ordenamiento correcto de los elementos. A continuación se formalizan matemáticamente las métricas de negocio seleccionadas:
+En el marco de la integración del algoritmo \textit{Cupid} dentro de una arquitectura software real, hemos definido tres métricas operativas principales para evaluar el rendimiento del sistema, diseñadas específicamente para reflejar la experiencia relacional de los usuarios. Las métricas establecidas son:
 
 \begin{itemize}
-    \item \textbf{Mean Reciprocal Rank (MRR):} Esta métrica evalúa la capacidad del sistema para situar un caso de éxito lo más alto posible en el ranking. Computa el recíproco de la posición del \textit{primer} candidato verdaderamente compatible en la lista recomendada. Se define matemáticamente como:
+    \item Dada una pareja, predecir si son compatibles o no, utilizando la métrica de compatibilidad.
+    \item Dada una pareja, predecir si son compatibles y estimar su tiempo de duración (longevidad).
+    \item Dada una persona, predecir qué otra persona es la más compatible con ella.
+\end{itemize}
+
+A continuación, se formaliza matemáticamente cada uno de estos enfoques:
+
+\subsection{1. Predicción de Compatibilidad Binaria}
+Para determinar si dos individuos son compatibles, el sistema genera primero una métrica de compatibilidad continua. Sea $u_A$ y $u_B$ los vectores de características de la Persona A y la Persona B. Definimos la función de compatibilidad del modelo como $S(u_A, u_B) \in [0, 100]$.
+
+La predicción binaria final $\hat{y}$ (compatible o no compatible) se formaliza aplicando un umbral de decisión $\tau$ (típicamente establecido en 65, según la distribución empírica del dataset):
+
+\begin{equation}
+    \hat{y}_{A,B} = 
+    \begin{cases} 
+      1 & \text{si } S(u_A, u_B) \ge \tau \\
+      0 & \text{si } S(u_A, u_B) < \tau
+    \end{cases}
+\end{equation}
+
+El rendimiento de esta predicción binaria sobre el conjunto de validación se evalúa mediante la Exactitud (\textit{Accuracy}) y el \textit{F1-Score}, contrastando $\hat{y}_{A,B}$ con el éxito real de la pareja, donde el \textit{score} continuo $S$ actúa como el motor discriminador.
+
+\subsection{2. Estimación de Longevidad Relacional}
+De forma complementaria a la clasificación de la compatibilidad, el sistema debe ser capaz de estimar la duración temporal de la relación. Definimos la función de estimación de longevidad como $L(u_A, u_B)$, la cual proyecta el tiempo en meses.
+
+La evaluación conjunta asume que la longevidad es un problema de regresión. Para cuantificar la precisión matemática de nuestra estimación respecto a la longevidad real $Y_{A,B}$, se define la función de pérdida mediante el Error Cuadrático Medio (RMSE), penalizando de forma severa las discrepancias extremas en la predicción del tiempo de duración:
+
+\begin{equation}
+    RMSE = \sqrt{\frac{1}{N} \sum_{i=1}^{N} \Big(Y_{A_i,B_i} - L(u_{A_i}, u_{B_i})\Big)^2}
+\end{equation}
+
+Donde $N$ representa el total de parejas evaluadas. Esta métrica permite comprender el error de la estimación en la misma escala temporal (meses) de la variable objetivo.
+
+\subsection{3. Recomendación (Matching óptimo)}
+El objetivo de mayor impacto en el producto no evalúa parejas de forma aislada. En su lugar, dada una persona específica $u_A$ y un conjunto de candidatos disponibles $C = \{c_1, c_2, \dots, c_m\}$, el algoritmo debe \textbf{predecir qué persona es la más compatible}, presentando un \textit{ranking} ordenado en orden descendente según $S(u_A, c_j)$. 
+
+Para evaluar la calidad de este emparejamiento múltiple, se adoptan métricas del estado del arte de los Sistemas de Recomendación:
+
+\begin{itemize}
+    \item \textbf{Mean Reciprocal Rank (MRR):} Cuantifica la rapidez del sistema para ofrecer el emparejamiento óptimo en la interfaz, localizando la posición (o rango) de la \textit{primera} persona verdaderamente compatible recomendada a $u_A$.
     
     \begin{equation}
         MRR = \frac{1}{|U|} \sum_{i=1}^{|U|} \frac{1}{rank_i}
     \end{equation}
     
-    Donde:
-    \begin{itemize}
-        \item $|U|$ es el número total de usuarios (o consultas) evaluados.
-        \item $rank_i$ representa la posición en la lista devuelta del \textit{primer} candidato verdaderamente compatible para el usuario $i$.
-    \end{itemize}
-    
-    Si el primer acierto se ubica en la primera posición, el MRR es 1.0; si recae en la tercera posición, el valor es 0.33. Su maximización asegura que el usuario final reciba valor de manera inmediata, minimizando la necesidad de realizar \textit{scroll} en la interfaz.
+    Donde $|U|$ es el número total de usuarios consultados, y $rank_i$ representa la posición en la lista del primer candidato compatible. Su maximización asegura que el usuario no tendrá que hacer \textit{scroll} para encontrar a su mejor prospecto.
 
-    \item \textbf{Mean Average Precision (MAP):} Complementando al MRR, el MAP evalúa la calidad, consistencia y pureza del ranking en profundidad. Computa la media de la Precisión Media (\textit{Average Precision}, AP) obtenida para el conjunto de usuarios, expresada mediante la siguiente fórmula:
+    \item \textbf{Mean Average Precision (MAP):} Complementando al MRR, el MAP evalúa la calidad global del ranking, calculando la Precisión Media (\textit{AP}) para el top $K$ de personas más compatibles recomendadas:
 
     \begin{equation}
         MAP = \frac{1}{|U|} \sum_{u=1}^{|U|} \left( \frac{1}{m_u} \sum_{k=1}^{K} P_u(k) \cdot rel_u(k) \right)
     \end{equation}
 
-    Donde:
-    \begin{itemize}
-        \item $|U|$ es el número total de usuarios evaluados.
-        \item $m_u$ es el número total de candidatos verdaderamente compatibles que existen para el usuario $u$.
-        \item $K$ es la longitud máxima de la lista de recomendación mostrada (\textit{Top K}).
-        \item $P_u(k)$ es la precisión calculada hasta la posición $k$ del ranking (aciertos acumulados hasta el elemento $k$ divididos por $k$).
-        \item $rel_u(k)$ es una función indicadora (\textit{indicator function}) que vale 1 si el candidato en la posición $k$ es compatible, y 0 en caso contrario.
-    \end{itemize}
-    
-    Esta métrica es esencial para el proyecto, ya que penaliza de forma severa si el algoritmo intercala recomendaciones incompatibles (ruido) entre perfiles altamente compatibles dentro del grupo principal de resultados.
+    Donde $m_u$ es el número de posibles parejas exitosas para $u$; $K$ es el límite de recomendaciones visualizadas; $P_u(k)$ es la precisión hasta la posición $k$; y $rel_u(k)$ es 1 si el candidato en la posición $k$ resulta compatible, y 0 en caso contrario. 
 \end{itemize}
 
-El planteamiento de este esquema de evaluación garantiza que la función de coste y la optimización algorítmica se traduzcan de manera directa en una mejora medible de la experiencia del usuario (UX).
+El planteamiento conjunto de estas tres dimensiones garantiza que la optimización algorítmica responda con exactitud matemática a las necesidades funcionales del producto y la experiencia del usuario.
