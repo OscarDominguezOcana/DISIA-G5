@@ -1,0 +1,86 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+wheels/
+
+# Entornos virtuales
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Datos y modelos (suelen ser muy pesados)
+data/raw/
+data/processed/
+*.tsv
+*.parquet
+*.feather
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.joblib
+
+# Modelos entrenados
+models/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.bin
+*.onnx
+*.pb
+*.tflite
+
+# MLflow / experimentos
+mlruns/
+mlartifacts/
+outputs/
+runs/
+
+# Weights & Biases
+wandb/
+
+# DVC
+.dvc/cache
+.dvc/tmp
+
+# Variables de entorno y secretos
+.env
+.env.local
+*.env
+secrets.yaml
+secrets.json
+config/local_settings.py
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+logs/
+
+# Cobertura de tests
+.coverage
+htmlcov/
+.pytest_cache/
