@@ -1,2 +1,260 @@
-\chapter{Chapter 3}
+\chapter{Modelado, Experimentación y Validación}
+\label{cap:modelado}
 
+\section{Introducción}
+\label{sec:intro_modelado}
+
+Este capítulo recoge la fase de modelado del proyecto: la selección, entrenamiento, ajuste y evaluación comparativa de modelos de \textit{Machine Learning} aplicados al problema del \textit{Cupid Algorithm}. Siguiendo la metodología de un artículo científico, se aborda en primer lugar el diseño experimental, para después presentar los resultados obtenidos y extraer conclusiones fundamentadas sobre qué modelo resulta más adecuado para cada tarea.
+
+Como se definió en el capítulo anterior, el problema se divide en tres tareas predictivas de complejidad creciente:
+
+\begin{enumerate}
+    \item \textbf{Predicción de Compatibilidad Binaria:} Dada una pareja, determinar si son compatibles o no (\textit{variable objetivo:} \texttt{compatible}).
+    \item \textbf{Estimación de Longevidad Relacional:} Dada una pareja compatible, estimar la duración de su relación en meses (\textit{variable objetivo:} \texttt{relationship\_longevity\_months}).
+    \item \textbf{Recomendación de Emparejamiento Óptimo:} Dada una persona, identificar qué candidato del conjunto es el más compatible con ella (sistema de \textit{ranking} con métricas MRR y MAP).
+\end{enumerate}
+
+En este capítulo se abordan en profundidad las dos primeras tareas, por ser las que permiten una experimentación más controlada y cuyos resultados son directamente comparables mediante métricas estándar. La tercera tarea queda definida metodológicamente en el Capítulo~\ref{cap:datos} y se reserva para trabajo futuro.
+
+\section{Diseño Experimental}
+\label{sec:disenio_experimental}
+
+\subsection{Partición de Datos}
+\label{subsec:particion}
+
+El conjunto de datos, compuesto por \textbf{100.000 observaciones}, se dividió en tres subconjuntos mutuamente excluyentes siguiendo la proporción acordada en la planificación del proyecto:
+
+\begin{itemize}
+    \item \textbf{Entrenamiento (\textit{train}):} 70\% → 70.000 muestras. Utilizado para ajustar los parámetros de cada modelo.
+    \item \textbf{Validación (\textit{validation}):} 15\% → 15.000 muestras. Utilizado para comparar modelos y seleccionar el mejor sin contaminar el conjunto de test.
+    \item \textbf{Test:} 15\% → 15.000 muestras. Utilizado únicamente para la evaluación final del modelo seleccionado, garantizando la imparcialidad de la estimación de rendimiento.
+\end{itemize}
+
+Esta estrategia de partición triple previene el sesgo de selección de modelos que se produciría si el conjunto de test se utilizara repetidamente durante el proceso de comparación. La semilla aleatoria se fijó en \texttt{random\_state=42} para garantizar la reproducibilidad de todos los experimentos.
+
+\subsection{Selección de Características}
+\label{subsec:seleccion_caracteristicas}
+
+A partir de las 23 características derivadas mediante Ingeniería de Características (detalladas en la Sección~\ref{sec:analisis_datos}), se aplicó un proceso de selección formal basado en \textbf{Información Mutua} (\textit{Mutual Information}), una medida no paramétrica que cuantifica la dependencia estadística entre cada predictor y la variable objetivo, sin asumir linealidad.
+
+\begin{itemize}
+    \item Para la \textbf{clasificación}, se empleó \texttt{mutual\_info\_classif}, seleccionando las \textbf{20 características} con mayor relevancia para predecir \texttt{compatible}.
+    \item Para la \textbf{regresión}, se empleó \texttt{mutual\_info\_regression}, seleccionando las \textbf{16 características} más informativas para predecir \texttt{relationship\_longevity\_months}.
+\end{itemize}
+
+Entre las características con mayor puntuación de información mutua para la tarea de clasificación destacan: \texttt{overall\_match\_score}, \texttt{same\_love\_language}, \texttt{ambition\_diff}, \texttt{similar\_ambition}, \texttt{emotional\_expressiveness\_diff} y \texttt{personality\_distance\_sum}. Estos resultados son coherentes con el análisis exploratorio del Capítulo~\ref{cap:datos}, que ya señalaba la homofilia en el lenguaje del amor y la proximidad en ambición como factores determinantes.
+
+\subsection{Modelos Evaluados}
+\label{subsec:modelos_evaluados}
+
+Siguiendo el criterio de diversidad metodológica, se seleccionaron \textbf{cinco algoritmos} para cada tarea, abarcando desde modelos lineales e interpretables hasta conjuntos (\textit{ensembles}) más complejos. La Tabla~\ref{tab:modelos_clasificacion} y la Tabla~\ref{tab:modelos_regresion} recogen la configuración de hiperparámetros utilizada.
+
+\begin{table}[H]
+\centering
+\footnotesize
+\begin{tabular}{llp{8cm}}
+\hline
+\textbf{Modelo} & \textbf{Abreviatura} & \textbf{Hiperparámetros principales} \\ \hline
+Regresión Logística & LR & \texttt{C=1.0}, \texttt{random\_state=42}; preprocesado con \texttt{StandardScaler} \\
+Random Forest & RF & \texttt{n\_estimators=400}, \texttt{max\_depth=12}, \texttt{random\_state=42} \\
+Árbol de Decisión & DT & \texttt{max\_depth=8}, \texttt{random\_state=42} \\
+Gradient Boosting & GB & \texttt{n\_estimators=300}, \texttt{learning\_rate=0.05}, \texttt{max\_depth=3}, \texttt{random\_state=42} \\
+K-Vecinos más Cercanos & KNN & \texttt{StandardScaler}; parámetros por defecto de \texttt{scikit-learn} \\ \hline
+\end{tabular}
+\caption{Configuración de los modelos evaluados para la tarea de clasificación binaria (\texttt{compatible}).}
+\label{tab:modelos_clasificacion}
+\end{table}
+
+\begin{table}[H]
+\centering
+\footnotesize
+\begin{tabular}{llp{8cm}}
+\hline
+\textbf{Modelo} & \textbf{Abreviatura} & \textbf{Hiperparámetros principales} \\ \hline
+Regresión Ridge & Ridge & \texttt{random\_state=42}; regularización L2 con $\alpha$ por defecto \\
+Random Forest & RF & \texttt{n\_estimators=200}, \texttt{max\_depth=10}, \texttt{random\_state=42} \\
+Árbol de Decisión & DT & \texttt{max\_depth=10}, \texttt{random\_state=42} \\
+Gradient Boosting & GB & \texttt{n\_estimators=200}, \texttt{learning\_rate=0.05}, \texttt{max\_depth=3}, \texttt{random\_state=42} \\
+K-Vecinos más Cercanos & KNN & parámetros por defecto de \texttt{scikit-learn} \\ \hline
+\end{tabular}
+\caption{Configuración de los modelos evaluados para la tarea de regresión (\texttt{relationship\_longevity\_months}).}
+\label{tab:modelos_regresion}
+\end{table}
+
+Todos los modelos se implementaron mediante \textit{pipelines} de \texttt{scikit-learn}, integrando el preprocesado (\texttt{StandardScaler} donde procede) y el estimador en un único objeto, lo que garantiza la ausencia de \textit{data leakage} entre las particiones de datos.
+
+\subsection{Métricas de Evaluación}
+\label{subsec:metricas_evaluacion}
+
+\subsubsection{Clasificación}
+Para la comparación de los modelos de clasificación se utilizaron las siguientes métricas calculadas sobre el conjunto de validación:
+
+\begin{itemize}
+    \item \textbf{Exactitud (\textit{Accuracy}):} Proporción de predicciones correctas sobre el total. Es una métrica de referencia general, aunque puede resultar engañosa en presencia de desbalance de clases.
+    \item \textbf{Precisión (\textit{Precision}):} Fracción de predicciones positivas que son verdaderos positivos. Penaliza los falsos positivos.
+    \item \textbf{Sensibilidad (\textit{Recall}):} Fracción de positivos reales detectados por el modelo. Penaliza los falsos negativos.
+    \item \textbf{F1-Score:} Media armónica entre Precisión y Sensibilidad. Es la métrica principal de comparación al equilibrar ambas perspectivas, especialmente relevante dado el ligero desbalance de clases (43\% compatible, 57\% no compatible).
+    \item \textbf{ROC-AUC:} Área bajo la curva ROC. Mide la capacidad discriminativa del modelo con independencia del umbral de decisión.
+\end{itemize}
+
+\subsubsection{Regresión}
+Para la comparación de los modelos de regresión se emplearon:
+
+\begin{itemize}
+    \item \textbf{Error Absoluto Medio (MAE):} Media de las diferencias absolutas entre predicción y valor real, expresado en meses. Es robusto frente a \textit{outliers} y de fácil interpretación.
+    \item \textbf{Raíz del Error Cuadrático Medio (RMSE):} Penaliza más severamente los errores grandes que el MAE. También se expresa en meses.
+    \item \textbf{Coeficiente de Determinación ($R^2$):} Proporción de la varianza de la variable objetivo explicada por el modelo. Un valor de 1 indica predicción perfecta; 0 indica que el modelo no supera la predicción por la media.
+\end{itemize}
+
+\section{Resultados de Clasificación: Predicción de Compatibilidad}
+\label{sec:resultados_clasificacion}
+
+La Tabla~\ref{tab:resultados_clasificacion_val} presenta las métricas obtenidas por los cinco modelos evaluados sobre el conjunto de validación.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lccccc}
+\hline
+\textbf{Modelo} & \textbf{Accuracy} & \textbf{Precisión} & \textbf{Recall} & \textbf{F1-Score} & \textbf{ROC-AUC} \\ \hline
+Regresión Logística & 0,7053 & 0,6440 & 0,6993 & \textbf{0,6705} & 0,7838 \\
+Random Forest       & 0,7107 & 0,6575 & 0,6788 & 0,6680 & 0,7807 \\
+Árbol de Decisión   & 0,6902 & 0,6254 & 0,6920 & 0,6570 & 0,7614 \\
+Gradient Boosting   & 0,7151 & 0,6898 & 0,6096 & 0,6472 & \textbf{0,7841} \\
+KNN                 & 0,7015 & 0,6662 & 0,6093 & 0,6365 & 0,7597 \\ \hline
+\end{tabular}
+\caption{Métricas de clasificación sobre el conjunto de validación (15.000 muestras). La métrica principal de selección de modelo es el F1-Score.}
+\label{tab:resultados_clasificacion_val}
+\end{table}
+
+\subsection{Análisis de Resultados de Clasificación}
+
+El análisis de la Tabla~\ref{tab:resultados_clasificacion_val} revela varios patrones de interés:
+
+\begin{itemize}
+    \item \textbf{Regresión Logística} logra el mayor F1-Score (0,6705) a pesar de ser el modelo más simple, lo que indica que el proceso de Ingeniería de Características ha transformado el espacio de características de forma que la frontera de decisión óptima es aproximadamente lineal.
+
+    \item \textbf{Gradient Boosting} obtiene la mayor exactitud (0,7151) y el ROC-AUC más alto (0,7841), pero su F1-Score es el cuarto peor. Esto se explica porque sacrifica \textit{recall} (0,6096) en favor de una mayor precisión (0,6898), comportamiento subóptimo para nuestro caso de uso, donde identificar todas las parejas compatibles es tan importante como evitar los falsos positivos.
+
+    \item \textbf{Random Forest} ofrece el segundo mejor F1-Score (0,6680) y un rendimiento global consistente, siendo un modelo robusto aunque menos interpretable.
+
+    \item \textbf{Árbol de Decisión} y \textbf{KNN} quedan por detrás en todas las métricas principales, siendo los candidatos descartados.
+\end{itemize}
+
+\subsection{Evaluación Final del Modelo Seleccionado: Regresión Logística}
+
+Tras seleccionar la Regresión Logística como mejor modelo basándonos en el F1-Score de validación, se procedió a su evaluación definitiva sobre el \textbf{conjunto de test}, que no había sido consultado en ningún momento del proceso de comparación. Los resultados, recogidos en la Tabla~\ref{tab:resultados_clasificacion_test}, confirman que el rendimiento se mantiene estable y no existe sobreajuste al conjunto de validación.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcccccc}
+\hline
+\textbf{Conjunto} & \textbf{Accuracy} & \textbf{Precisión} & \textbf{Recall} & \textbf{F1-Score} & \textbf{ROC-AUC} \\ \hline
+Validación & 0,7053 & 0,6440 & 0,6993 & 0,6705 & 0,7838 \\
+Test       & 0,7182 & 0,6599 & 0,7072 & \textbf{0,6828} & 0,7917 \\ \hline
+\end{tabular}
+\caption{Comparación del rendimiento de la Regresión Logística en validación y test. La mejora marginal en test indica ausencia de sobreajuste.}
+\label{tab:resultados_clasificacion_test}
+\end{table}
+
+El modelo alcanza un \textbf{F1-Score de 0,6828} y un \textbf{ROC-AUC de 0,7917} en el conjunto de test, lo que supone una capacidad discriminativa sólida para un problema de compatibilidad relacional con variables de naturaleza continua y alta interacción entre ellas.
+
+\subsection{Interpretabilidad: Coeficientes del Modelo}
+
+Una de las ventajas fundamentales de la Regresión Logística frente a los modelos de \textit{ensemble} es su interpretabilidad directa a través de los coeficientes. El análisis de los pesos asignados por el modelo confirma la coherencia con la teoría psicológica subyacente:
+
+\begin{itemize}
+    \item La característica \texttt{emotional\_expressiveness\_diff} presenta el coeficiente negativo más significativo ($-0,5635$), indicando que las grandes diferencias en expresividad emocional son el factor más penalizador para la compatibilidad. Este hallazgo es consistente con la literatura sobre comunicación en parejas.
+    \item Variables como \texttt{same\_love\_language}, \texttt{overall\_match\_score} y \texttt{high\_personality\_similarity} contribuyen positivamente, reforzando el principio de homofilia observado en el EDA.
+\end{itemize}
+
+\section{Resultados de Regresión: Estimación de Longevidad}
+\label{sec:resultados_regresion}
+
+La Tabla~\ref{tab:resultados_regresion_val} presenta las métricas obtenidas por los cinco modelos de regresión sobre el conjunto de validación.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcccc}
+\hline
+\textbf{Modelo} & \textbf{MAE (meses)} & \textbf{RMSE (meses)} & \textbf{$R^2$} \\ \hline
+Regresión Ridge     & \textbf{16,438} & \textbf{20,482} & \textbf{0,0804} \\
+Gradient Boosting   & 16,449 & 20,496 & 0,0792 \\
+Random Forest       & 16,510 & 20,575 & 0,0721 \\
+Árbol de Decisión   & 16,929 & 21,135 & 0,0209 \\
+KNN                 & 18,099 & 22,627 & $-0,1223$ \\ \hline
+\end{tabular}
+\caption{Métricas de regresión sobre el conjunto de validación. La métrica principal de selección es el MAE.}
+\label{tab:resultados_regresion_val}
+\end{table}
+
+\subsection{Análisis de Resultados de Regresión}
+
+El análisis de los resultados de la Tabla~\ref{tab:resultados_regresion_val} pone de manifiesto la mayor dificultad intrínseca de la tarea de regresión frente a la clasificación:
+
+\begin{itemize}
+    \item \textbf{Regresión Ridge} obtiene el mejor MAE (16,438 meses) y RMSE (20,482 meses), así como el $R^2$ más alto (0,0804), y es seleccionada como modelo ganador.
+
+    \item \textbf{Gradient Boosting} se sitúa en segunda posición con métricas prácticamente idénticas a Ridge (MAE de 16,449 meses, diferencia de tan solo 0,011 meses), lo que sugiere que ambos modelos han alcanzado un techo de rendimiento similar con las características disponibles.
+
+    \item \textbf{KNN} ofrece el peor rendimiento con diferencia, presentando incluso un $R^2$ negativo ($-0,1223$), lo que indica que su predicción es peor que la predicción naive basada en la media. Este comportamiento es esperable dado que KNN es sensible a la dimensionalidad y a la escala, y la longevidad es un fenómeno temporalmente irregular.
+
+    \item El \textbf{$R^2$ reducido} de todos los modelos (máximo de 0,0804) es el hallazgo más significativo del experimento de regresión. Indica que las variables disponibles en el \textit{dataset} explican una fracción limitada de la varianza en la duración de las relaciones, lo que es coherente con la naturaleza del problema: la longevidad relacional depende de factores dinámicos, contextuales y emocionales que difícilmente se capturan con un perfil estático de características.
+\end{itemize}
+
+\subsection{Evaluación Final del Modelo Seleccionado: Regresión Ridge}
+
+Tras seleccionar Ridge como mejor modelo, su evaluación sobre el \textbf{conjunto de test} se presenta en la Tabla~\ref{tab:resultados_regresion_test}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcccc}
+    \hline
+    \textbf{Conjunto} & \textbf{MAE (meses)} & \textbf{RMSE (meses)} & \textbf{$R^2$} \\ \hline
+    Validación & 16,438 & 20,482 & 0,0804 \\
+    Test       & \textbf{16,271} & \textbf{20,334} & 0,0758 \\ \hline
+\end{tabular}
+\caption{Comparación del rendimiento de la Regresión Ridge en validación y test.}
+\label{tab:resultados_regresion_test}
+\end{table}
+
+El modelo obtiene un \textbf{MAE de 16,271 meses} y un \textbf{RMSE de 20,334 meses} en test. Considerando que la variable objetivo oscila entre 0 y 120 meses, el error absoluto medio representa aproximadamente un 13,6\% del rango total, lo cual, aunque modesto, refleja correctamente la dificultad del problema.
+
+\section{Discusión}
+\label{sec:discusion}
+
+\subsection{Comparativa entre Clasificación y Regresión}
+
+Los resultados ponen de manifiesto una asimetría clara entre las dos tareas abordadas:
+
+\begin{itemize}
+    \item La \textbf{predicción de compatibilidad binaria} (clasificación) alcanza métricas razonables con la Regresión Logística (F1=0,6828, ROC-AUC=0,7917). El proceso de \textit{Feature Engineering} resulta especialmente efectivo para esta tarea, al transformar variables individuales en indicadores de similitud y divergencia que el modelo lineal puede explotar directamente.
+
+    \item La \textbf{estimación de longevidad} (regresión) resulta significativamente más compleja, con un $R^2$ máximo de 0,0804 en validación. Esta limitación no es un fallo del modelado en sí, sino una evidencia de que los factores que determinan la duración de una relación trascienden los atributos de perfil estático. Eventos vitales, adaptabilidad, comunicación dinámica y contexto socioeconómico son variables ausentes del \textit{dataset} pero determinantes en la realidad.
+\end{itemize}
+
+\subsection{Elección de Modelos Simples frente a Modelos Complejos}
+
+Un resultado llamativo es que en ambas tareas los modelos lineales (Regresión Logística y Ridge) superan o igualan a los \textit{ensembles} más complejos (Random Forest, Gradient Boosting). Este fenómeno se explica por:
+
+\begin{enumerate}
+    \item \textbf{Calidad del Feature Engineering:} Las 20--23 características derivadas ya incorporan la no linealidad del problema (distancias, interacciones categóricas, indicadores compuestos), dejando al modelo una tarea de agregación lineal.
+    \item \textbf{Generalización:} Los modelos lineales generalizan mejor en espacios de alta dimensión cuando las señales son débiles y ruidosas, que es precisamente el caso de la longevidad relacional.
+    \item \textbf{Navaja de Ockham:} En igualdad de condiciones predictivas, el modelo más simple y explicable es preferible, especialmente en sistemas que deben ser auditados o integrados en entornos con requisitos de transparencia.
+\end{enumerate}
+
+\section{Conclusiones}
+\label{sec:conclusiones_modelado}
+
+El proceso de experimentación y validación ha permitido extraer las siguientes conclusiones:
+
+\begin{enumerate}
+    \item \textbf{Modelo recomendado para compatibilidad:} La \textbf{Regresión Logística} es el modelo más adecuado para predecir si una pareja es compatible, logrando un F1-Score de 0,6828 y ROC-AUC de 0,7917 en test. Su interpretabilidad a través de los coeficientes proporciona además valor explicativo al sistema.
+
+    \item \textbf{Modelo recomendado para longevidad:} La \textbf{Regresión Ridge} es la mejor opción para estimar la duración de la relación, con un MAE de 16,271 meses en test. No obstante, el bajo $R^2$ advierte de que esta predicción debe emplearse con cautela y comunicarse al usuario con intervalos de incertidumbre.
+
+    \item \textbf{Importancia del Feature Engineering:} La ingeniería de características ha sido el factor más determinante del rendimiento. Los indicadores derivados (distancia de personalidad, coincidencia de lenguaje del amor, \textit{overall match score}) concentran la mayor parte de la señal predictiva.
+
+    \item \textbf{Límites del dataset:} El $R^2$ reducido en regresión señala que para mejorar sustancialmente la predicción de longevidad sería necesario enriquecer el \textit{dataset} con variables dinámicas (comportamiento en la plataforma, retroalimentación de los usuarios) o plantear el problema como supervivencia (\textit{survival analysis}).
+
+    \item \textbf{Reproducibilidad:} Todos los experimentos se han ejecutado con \texttt{random\_state=42} y los resultados son completamente reproducibles a partir del \textit{notebook} adjunto al repositorio del proyecto.
+\end{enumerate}
