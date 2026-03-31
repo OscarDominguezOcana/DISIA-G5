@@ -22,4 +22,24 @@
 \contentsline {subsection}{1. Predicción de Compatibilidad Binaria}{22}{section*.21}%
 \contentsline {subsection}{2. Estimación de Longevidad Relacional}{23}{section*.22}%
 \contentsline {subsection}{3. Recomendación (Matching óptimo)}{23}{section*.23}%
-\contentsline {chapter}{References}{25}{section*.24}%
+\contentsline {chapter}{Modelado, Experimentación y Validación}{25}{chapter*.24}%
+\contentsline {section}{Introducción}{25}{section*.25}%
+\contentsline {section}{Diseño Experimental}{25}{section*.26}%
+\contentsline {subsection}{Partición de Datos}{25}{section*.27}%
+\contentsline {subsection}{Selección de Características}{26}{section*.28}%
+\contentsline {subsection}{Modelos Evaluados}{26}{section*.29}%
+\contentsline {subsection}{Métricas de Evaluación}{27}{section*.30}%
+\contentsline {subsubsection}{Clasificación}{27}{section*.31}%
+\contentsline {subsubsection}{Regresión}{27}{section*.32}%
+\contentsline {section}{Resultados de Clasificación: Predicción de Compatibilidad}{28}{section*.33}%
+\contentsline {subsection}{Análisis de Resultados de Clasificación}{28}{section*.34}%
+\contentsline {subsection}{Evaluación Final del Modelo Seleccionado: Regresión Logística}{29}{section*.35}%
+\contentsline {subsection}{Interpretabilidad: Coeficientes del Modelo}{29}{section*.36}%
+\contentsline {section}{Resultados de Regresión: Estimación de Longevidad}{29}{section*.37}%
+\contentsline {subsection}{Análisis de Resultados de Regresión}{30}{section*.38}%
+\contentsline {subsection}{Evaluación Final del Modelo Seleccionado: Regresión Ridge}{30}{section*.39}%
+\contentsline {section}{Discusión}{31}{section*.40}%
+\contentsline {subsection}{Comparativa entre Clasificación y Regresión}{31}{section*.41}%
+\contentsline {subsection}{Elección de Modelos Simples frente a Modelos Complejos}{31}{section*.42}%
+\contentsline {section}{Conclusiones}{31}{section*.43}%
+\contentsline {chapter}{References}{33}{section*.44}%
