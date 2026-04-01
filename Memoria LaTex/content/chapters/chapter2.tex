@@ -86,35 +86,69 @@ Más allá de las características predictoras de cada usuario individual, el si
   \label{fig:ejemplo_targets}
 \end{figure}
 
-\section{Análisis de los datos}
+
+\section{Análisis de los datos y Detección de Sesgos}
 \label{sec:analisis_datos}
-El Análisis Exploratorio de Datos (EDA) se ha enfocado en modelar las dinámicas de interacción intra-pareja para identificar patrones predictivos viables y visualizar la importancia de las diferencias de carácter. Para ello se ejecutó un estudio sistemático apoyado en herramientas de visualización de datos avanzadas.
+El Análisis Exploratorio de Datos (EDA) se ha enfocado en modelar las dinámicas de interacción intra-pareja, identificar patrones predictivos viables y detectar posibles sesgos (estadísticos o estructurales) en el conjunto de datos. Para ello se ejecutó un estudio sistemático apoyado en herramientas de visualización de datos avanzadas.
 
-\subsection{Distribuciones de las Variables Objetivo}
-En primera instancia, el análisis univariante comprobó el comportamiento de nuestros objetivos de modelado (\textit{targets}). La Figura~\ref{fig:distribuciones_targets} expone los resultados gráficos de esta inspección. Se reveló que la variable continua \texttt{compatibility\_score} se ajusta a una distribución normal asimétrica, centralizada en puntuaciones medias. 
+\subsection{Análisis de Sesgos: Variables Objetivo (Score, Clases y Longevidad)}
+En esta primera serie de visualizaciones evaluamos el comportamiento y las distribuciones de nuestras tres variables objetivo (\textit{targets}) principales (ver Figura \ref{fig:distribuciones_targets}):
 
-Respecto a la etiqueta binaria \texttt{compatible}, se detectó un leve desbalance natural en la muestra: un 43\% de emparejamientos exitosos frente a un 57\% de fracasos (véase el gráfico central de barras). Dado que este desbalance es moderado y refleja proporciones realistas, se concluyó que la aplicación de técnicas algorítmicas de sobremuestreo sintético (como SMOTE) no resultaría estrictamente necesaria para los modelos iniciales basados en ensambles de árboles.
+\begin{itemize}
+    \item \textbf{Densidad del Score de Compatibilidad:} El primer gráfico revela que la puntuación base se ajusta a una distribución aproximadamente normal. No observamos polarizaciones extremas (sesgos hacia los extremos 0 o 100), lo que nos indica una distribución sana y equilibrada para utilizarla como métrica de regresión.
+    \item \textbf{Balance de Clases (Éxito Relacional):} El gráfico central muestra un ligero desbalance natural en la etiqueta binaria \texttt{compatible}, con casi un 43\% de casos de éxito frente a un 57\% de fracasos. Al ser un desbalance moderado y altamente representativo de las dinámicas relacionales del mundo real, podemos prescindir de aplicar técnicas artificiales de sobremuestreo (como SMOTE) para nuestros modelos iniciales.
+    \item \textbf{Distribución de Longevidad:} El histograma de la derecha revela cómo se distribuye el tiempo de vida de las relaciones en meses. Se observa una alta concentración de frecuencias en los primeros meses (rupturas tempranas típicas), disminuyendo gradualmente conforme avanza el tiempo. Nuestro modelo de regresión tendrá que aprender a interpretar esta asimetría temporal natural.
+\end{itemize}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.95\textwidth]{Pictures/distribuciones_targets.png}
-  \caption{Distribución de las variables objetivo: densidad del \textit{score} de compatibilidad (izquierda), proporción de éxito binario (centro) y distribución de longevidad en meses (derecha).}
+  \includegraphics[width=0.95\textwidth]{Pictures/distribuciones_targets.png} 
+  \caption{Distribución de las variables objetivo: densidad del score (izq.), balance de clases (centro) y longevidad (der.).}
   \label{fig:distribuciones_targets}
 \end{figure}
 
-\subsection{Afinidad e Ingeniería de Características}
-El análisis bivariable demostró empíricamente la prevalencia de la \textbf{homofilia} como el principal motor de compatibilidad estadística. Es decir, los usuarios tienden a consolidar relaciones exitosas cuando comparten características clave.
-
-Un ejemplo claro de este comportamiento se visualiza en la Figura~\ref{fig:matriz_lenguajes_amor}, que muestra la matriz de contingencia normalizada al cruzar los lenguajes del amor del Individuo A y el Individuo B. Las celdas de la diagonal principal (donde ambos comparten el mismo lenguaje) presentan tasas de éxito notablemente superiores, reafirmando empíricamente que compartir el mismo estilo afectivo incrementa la viabilidad matemática de la pareja.
+Para ahondar en esta distribución temporal, se procedió a agrupar los registros de longevidad en bloques de 5 meses. La Figura~\ref{fig:sesgo_supervivencia_5meses} ilustra claramente el \textbf{Sesgo de Supervivencia} inherente al problema. Existe una concentración masiva de rupturas (incompatibilidades, en rojo) en las primeras etapas. Esta visualización confirma que la predicción de longevidad será un reto algorítmico donde el modelo deberá aprender a discriminar qué factores otorgan resiliencia a largo plazo frente a los fracasos tempranos.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.67\textwidth]{Pictures/matriz_lenguajes_amor.png}
+  \includegraphics[width=0.85\textwidth]{Pictures/sesgo_supervivencia_5meses.png} 
+  \caption{Distribución de registros según su longevidad agrupada en intervalos de 5 meses. Se aprecia la fuerte caída temprana de las relaciones incompatibles.}
+  \label{fig:sesgo_supervivencia_5meses}
+\end{figure}
+
+
+\subsection{Análisis de Sesgos Estructurales: Ambición y Brecha de Edad}
+Estas visualizaciones exponen cómo las diferencias relativas o "brechas" absolutas afectan al éxito de la pareja, revelando patrones estructurales clave (ver Figura \ref{fig:sesgos_estructurales}):
+
+\begin{itemize}
+    \item \textbf{Afinidad en Ambición:} El gráfico de densidad KDE confirma que las parejas compatibles (representadas en azul) tienden a agruparse fuertemente cerca de la línea de identidad diagonal, lo que significa que poseen niveles de ambición profesional equiparables. Por el contrario, las parejas incompatibles (en rojo) presentan una mayor dispersión.
+    \item \textbf{Diferencia de Edad (\textit{Age Gap}):} El diagrama de violín nos muestra la distribución de la brecha de edad entre parejas exitosas y fallidas. Podemos observar cómo la forma de las distribuciones varía ligeramente, revelando que el algoritmo deberá aprender a sopesar esta diferencia absoluta como un posible factor de penalización relacional.
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{Pictures/sesgos_estructurales.png} 
+  \caption{Análisis de sesgos estructurales: Afinidad en ambición profesional (izquierda) y diagrama de violín para la diferencia de edad (derecha).}
+  \label{fig:sesgos_estructurales}
+\end{figure}
+
+
+\subsection{Análisis de Sesgos de Interacción: Lenguajes del Amor}
+Esta visualización es crítica para entender cómo interactúan las variables categóricas entre ambos individuos. La Figura~\ref{fig:matriz_lenguajes_amor} muestra la matriz de contingencia térmica cruzando los lenguajes del amor.
+
+\begin{itemize}
+    \item \textbf{Tasa de Compatibilidad por Cruce:} Este mapa de calor (\textit{heatmap}) demuestra visualmente el principio sociológico de \textit{homofilia}. Las celdas que conforman la diagonal principal (donde ambos individuos comparten exactamente el mismo lenguaje del amor) presentan tasas de éxito porcentual significativamente más altas. Esto nos indica de forma clara que el algoritmo deberá nutrirse de variables de interacción construidas mediante \textit{Feature Engineering} para captar estas coincidencias.
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\textwidth]{Pictures/matriz_lenguajes_amor.png}
   \caption{Matriz de contingencia térmica (\textit{Heatmap}): Tasa de compatibilidad porcentual según el cruce de los lenguajes del amor entre ambos individuos.}
   \label{fig:matriz_lenguajes_amor}
 \end{figure}
 
-Con el fin de trasladar estas relaciones geométricas y patrones categóricos a los algoritmos de \textit{Machine Learning}, se ejecutó un proceso profundo de Ingeniería de Características (\textit{Feature Engineering}):
+\subsection{Ingeniería de Características (\textit{Feature Engineering})}
+Con el fin de trasladar estas relaciones geométricas, mitigar sesgos de representación y proporcionar un marco matemático viable para los algoritmos de \textit{Machine Learning}, se ejecutó un proceso profundo de Ingeniería de Características:
 
 \begin{enumerate}
     \item \textbf{Distancia Euclidiana de Personalidad:} Se procedió a calcular la norma euclidiana vectorial entre el conjunto de rasgos psicológicos (\textit{Big Five} y expresividad emocional) de ambos individuos. Esta transformación matemática consolida múltiples variables en un predictor continuo robusto que penaliza las divergencias extremas de carácter.
@@ -122,7 +156,7 @@ Con el fin de trasladar estas relaciones geométricas y patrones categóricos a 
     \item \textbf{Interacciones Categóricas (Efecto Espejo):} Las coincidencias en variables nominales fueron codificadas como indicadores booleanos. El estudio determinó que presentar coincidencias exactas en estas variables incrementa notablemente la probabilidad de éxito. Por ejemplo, compartir el mismo campo profesional (\texttt{match\_career} = 1) eleva la tasa de compatibilidad promedio hasta el 53.7\%.
 \end{enumerate}
 
-Las características derivadas se han consolidado en la Tabla~\ref{tab:diccionario_pesos}, clasificadas en función de si su impacto (peso o correlación) resulta positivo o negativo para el algoritmo predictivo.
+Las características derivadas se han consolidado en la Tabla~\ref{tab:diccionario_pesos}, clasificadas en función de si su impacto resulta positivo o negativo para el algoritmo predictivo.
 
 \begin{table}[H]
 \centering
@@ -142,41 +176,63 @@ Para asegurar una integración óptima en la futura arquitectura de software y p
 
 \section{Evaluación del rendimiento y Métricas}
 \label{sec:evaluacion_metricas}
-En el marco de la puesta en producción del algoritmo \textit{Cupid} (integrado como motor principal de una aplicación móvil o web), el sistema no predecirá el éxito de una pareja de manera aislada. Su función operativa será proveer al usuario un \textbf{feed o ranking ordenado de candidatos potenciales}. Por consiguiente, evaluar el sistema empleando exclusivamente métricas de clasificación convencionales (como la Exactitud o \textit{Accuracy}) resulta metodológicamente insuficiente, pues ignoraría la posición relativa de los aciertos.
-
-Para subsanar esto, la evaluación formal se alineará con el estado del arte de los Sistemas de Recomendación, adoptando métricas que ponderan y priorizan el ordenamiento correcto de los elementos. A continuación se formalizan matemáticamente las métricas de negocio seleccionadas:
+En el marco de la integración del algoritmo \textit{Cupid} dentro de una arquitectura software real, hemos definido tres métricas operativas principales para evaluar el rendimiento del sistema, diseñadas específicamente para reflejar la experiencia relacional de los usuarios. Las métricas establecidas son:
 
 \begin{itemize}
-    \item \textbf{Mean Reciprocal Rank (MRR):} Esta métrica evalúa la capacidad del sistema para situar un caso de éxito lo más alto posible en el ranking. Computa el recíproco de la posición del \textit{primer} candidato verdaderamente compatible en la lista recomendada. Se define matemáticamente como:
+    \item Dada una pareja, predecir si son compatibles o no, utilizando la métrica de compatibilidad.
+    \item Dada una pareja, predecir si son compatibles y estimar su tiempo de duración (longevidad).
+    \item Dada una persona, predecir qué otra persona es la más compatible con ella.
+\end{itemize}
+
+A continuación, se formaliza matemáticamente cada uno de estos enfoques:
+
+\subsection{1. Predicción de Compatibilidad Binaria}
+Para determinar si dos individuos son compatibles, el sistema genera primero una métrica de compatibilidad continua. Sea $u_A$ y $u_B$ los vectores de características de la Persona A y la Persona B. Definimos la función de compatibilidad del modelo como $S(u_A, u_B) \in [0, 100]$.
+
+La predicción binaria final $\hat{y}$ (compatible o no compatible) se formaliza aplicando un umbral de decisión $\tau$ (típicamente establecido en 65, según la distribución empírica del dataset):
+
+\begin{equation}
+    \hat{y}_{A,B} = 
+    \begin{cases} 
+      1 & \text{si } S(u_A, u_B) \ge \tau \\
+      0 & \text{si } S(u_A, u_B) < \tau
+    \end{cases}
+\end{equation}
+
+El rendimiento de esta predicción binaria sobre el conjunto de validación se evalúa mediante la Exactitud (\textit{Accuracy}) y el \textit{F1-Score}, contrastando $\hat{y}_{A,B}$ con el éxito real de la pareja, donde el \textit{score} continuo $S$ actúa como el motor discriminador.
+
+\subsection{2. Estimación de Longevidad Relacional}
+De forma complementaria a la clasificación de la compatibilidad, el sistema debe ser capaz de estimar la duración temporal de la relación. Definimos la función de estimación de longevidad como $L(u_A, u_B)$, la cual proyecta el tiempo en meses.
+
+La evaluación conjunta asume que la longevidad es un problema de regresión. Para cuantificar la precisión matemática de nuestra estimación respecto a la longevidad real $Y_{A,B}$, se define la función de pérdida mediante el Error Cuadrático Medio (RMSE), penalizando de forma severa las discrepancias extremas en la predicción del tiempo de duración:
+
+\begin{equation}
+    RMSE = \sqrt{\frac{1}{N} \sum_{i=1}^{N} \Big(Y_{A_i,B_i} - L(u_{A_i}, u_{B_i})\Big)^2}
+\end{equation}
+
+Donde $N$ representa el total de parejas evaluadas. Esta métrica permite comprender el error de la estimación en la misma escala temporal (meses) de la variable objetivo.
+
+\subsection{3. Recomendación (Matching óptimo)}
+El objetivo de mayor impacto en el producto no evalúa parejas de forma aislada. En su lugar, dada una persona específica $u_A$ y un conjunto de candidatos disponibles $C = \{c_1, c_2, \dots, c_m\}$, el algoritmo debe \textbf{predecir qué persona es la más compatible}, presentando un \textit{ranking} ordenado en orden descendente según $S(u_A, c_j)$. 
+
+Para evaluar la calidad de este emparejamiento múltiple, se adoptan métricas del estado del arte de los Sistemas de Recomendación:
+
+\begin{itemize}
+    \item \textbf{Mean Reciprocal Rank (MRR):} Cuantifica la rapidez del sistema para ofrecer el emparejamiento óptimo en la interfaz, localizando la posición (o rango) de la \textit{primera} persona verdaderamente compatible recomendada a $u_A$.
     
     \begin{equation}
         MRR = \frac{1}{|U|} \sum_{i=1}^{|U|} \frac{1}{rank_i}
     \end{equation}
     
-    Donde:
-    \begin{itemize}
-        \item $|U|$ es el número total de usuarios (o consultas) evaluados.
-        \item $rank_i$ representa la posición en la lista devuelta del \textit{primer} candidato verdaderamente compatible para el usuario $i$.
-    \end{itemize}
-    
-    Si el primer acierto se ubica en la primera posición, el MRR es 1.0; si recae en la tercera posición, el valor es 0.33. Su maximización asegura que el usuario final reciba valor de manera inmediata, minimizando la necesidad de realizar \textit{scroll} en la interfaz.
+    Donde $|U|$ es el número total de usuarios consultados, y $rank_i$ representa la posición en la lista del primer candidato compatible. Su maximización asegura que el usuario no tendrá que hacer \textit{scroll} para encontrar a su mejor prospecto.
 
-    \item \textbf{Mean Average Precision (MAP):} Complementando al MRR, el MAP evalúa la calidad, consistencia y pureza del ranking en profundidad. Computa la media de la Precisión Media (\textit{Average Precision}, AP) obtenida para el conjunto de usuarios, expresada mediante la siguiente fórmula:
+    \item \textbf{Mean Average Precision (MAP):} Complementando al MRR, el MAP evalúa la calidad global del ranking, calculando la Precisión Media (\textit{AP}) para el top $K$ de personas más compatibles recomendadas:
 
     \begin{equation}
         MAP = \frac{1}{|U|} \sum_{u=1}^{|U|} \left( \frac{1}{m_u} \sum_{k=1}^{K} P_u(k) \cdot rel_u(k) \right)
     \end{equation}
 
-    Donde:
-    \begin{itemize}
-        \item $|U|$ es el número total de usuarios evaluados.
-        \item $m_u$ es el número total de candidatos verdaderamente compatibles que existen para el usuario $u$.
-        \item $K$ es la longitud máxima de la lista de recomendación mostrada (\textit{Top K}).
-        \item $P_u(k)$ es la precisión calculada hasta la posición $k$ del ranking (aciertos acumulados hasta el elemento $k$ divididos por $k$).
-        \item $rel_u(k)$ es una función indicadora (\textit{indicator function}) que vale 1 si el candidato en la posición $k$ es compatible, y 0 en caso contrario.
-    \end{itemize}
-    
-    Esta métrica es esencial para el proyecto, ya que penaliza de forma severa si el algoritmo intercala recomendaciones incompatibles (ruido) entre perfiles altamente compatibles dentro del grupo principal de resultados.
+    Donde $m_u$ es el número de posibles parejas exitosas para $u$; $K$ es el límite de recomendaciones visualizadas; $P_u(k)$ es la precisión hasta la posición $k$; y $rel_u(k)$ es 1 si el candidato en la posición $k$ resulta compatible, y 0 en caso contrario. 
 \end{itemize}
 
-El planteamiento de este esquema de evaluación garantiza que la función de coste y la optimización algorítmica se traduzcan de manera directa en una mejora medible de la experiencia del usuario (UX).
+El planteamiento conjunto de estas tres dimensiones garantiza que la optimización algorítmica responda con exactitud matemática a las necesidades funcionales del producto y la experiencia del usuario.

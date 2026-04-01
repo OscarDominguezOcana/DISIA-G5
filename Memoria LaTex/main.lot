@@ -3,4 +3,11 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {1}{\ignorespaces Inventario de datos original: Diccionario de variables}}{16}{table.0.1}%
-\contentsline {table}{\numberline {2}{\ignorespaces Diccionario de variables interactivas: características con pesos positivos y negativos}}{20}{table.0.2}%
+\contentsline {table}{\numberline {2}{\ignorespaces Diccionario de variables interactivas: características con pesos positivos y negativos}}{22}{table.0.2}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3}{\ignorespaces Configuración de los modelos evaluados para la tarea de clasificación binaria (\texttt {compatible}).}}{26}{table.0.3}%
+\contentsline {table}{\numberline {4}{\ignorespaces Configuración de los modelos evaluados para la tarea de regresión (\texttt {relationship\_longevity\_months}).}}{27}{table.0.4}%
+\contentsline {table}{\numberline {5}{\ignorespaces Métricas de clasificación sobre el conjunto de validación (15.000 muestras). La métrica principal de selección de modelo es el F1-Score.}}{28}{table.0.5}%
+\contentsline {table}{\numberline {6}{\ignorespaces Comparación del rendimiento de la Regresión Logística en validación y test. La mejora marginal en test indica ausencia de sobreajuste.}}{30}{table.0.6}%
+\contentsline {table}{\numberline {7}{\ignorespaces Métricas de regresión sobre el conjunto de validación. La métrica principal de selección es el MAE.}}{30}{table.0.7}%
+\contentsline {table}{\numberline {8}{\ignorespaces Comparación del rendimiento de la Regresión Ridge en validación y test.}}{32}{table.0.8}%
