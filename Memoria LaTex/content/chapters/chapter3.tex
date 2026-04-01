@@ -42,7 +42,7 @@ A partir de las 23 características derivadas mediante Ingeniería de Caracterí
     \item Para la \textbf{regresión}, se empleó \texttt{mutual\_info\_regression}, seleccionando las \textbf{16 características} más informativas para predecir \texttt{relationship\_longevity\_months}.
 \end{itemize}
 
-Entre las características con mayor puntuación de información mutua para la tarea de clasificación destacan: \texttt{overall\_match\_score}, \texttt{same\_love\_language}, \texttt{ambition\_diff}, \texttt{similar\_ambition}, \texttt{emotional\_expressiveness\_diff} y \texttt{personality\_distance\_sum}. Estos resultados son coherentes con el análisis exploratorio del Capítulo~\ref{cap:datos}, que ya señalaba la homofilia en el lenguaje del amor y la proximidad en ambición como factores determinantes.
+Entre las características con mayor puntuación de información mutua para la tarea de clasificación destacan: \texttt{overall\_match\_score}, \texttt{same\_love\_language}, \texttt{ambition\_diff}, \texttt{similar\_ambition}, \nolinkurl{emotional\_expressiveness\_diff} y \texttt{personality\_distance\_sum}. Estos resultados son coherentes con el análisis exploratorio del Capítulo~\ref{cap:datos}, que ya señalaba la homofilia en el lenguaje del amor y la proximidad en ambición como factores determinantes.
 
 \subsection{Modelos Evaluados}
 \label{subsec:modelos_evaluados}
@@ -140,6 +140,21 @@ El análisis de la Tabla~\ref{tab:resultados_clasificacion_val} revela varios pa
     \item \textbf{Árbol de Decisión} y \textbf{KNN} quedan por detrás en todas las métricas principales, siendo los candidatos descartados.
 \end{itemize}
 
+\subsection{Importancia relativa de variables por modelo en clasificación}
+
+La Figura~\ref{fig:importancia_variables_clasificacion} muestra la importancia relativa de las variables en los distintos modelos de clasificación. Se observa que \texttt{same\_love\_language} es la variable más relevante en todos los modelos, lo que indica que compartir el mismo lenguaje afectivo tiene un fuerte impacto en la compatibilidad. 
+
+También destacan variables relacionadas con diferencias entre individuos, como \nolinkurl{emotional\_expressiveness\_diff}, \texttt{ambition\_diff} y \texttt{spontaneity\_diff}, especialmente en modelos no lineales. Esto sugiere que la compatibilidad depende en gran medida de la interacción entre perfiles.
+
+En general, la importancia está distribuida entre varias variables, lo que refleja que se trata de un problema multifactorial.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.80\textwidth]{Pictures/importancia_variables_clasificacion.png}
+  \caption{Importancia relativa de las variables en los modelos de clasificación. Los valores están normalizados por modelo y permiten comparar la relevancia de cada característica en la predicción de la compatibilidad.}
+  \label{fig:importancia_variables_clasificacion}
+\end{figure}
+
 \subsection{Evaluación Final del Modelo Seleccionado: Regresión Logística}
 
 Tras seleccionar la Regresión Logística como mejor modelo basándonos en el F1-Score de validación, se procedió a su evaluación definitiva sobre el \textbf{conjunto de test}, que no había sido consultado en ningún momento del proceso de comparación. Los resultados, recogidos en la Tabla~\ref{tab:resultados_clasificacion_test}, confirman que el rendimiento se mantiene estable y no existe sobreajuste al conjunto de validación.
@@ -201,6 +216,20 @@ El análisis de los resultados de la Tabla~\ref{tab:resultados_regresion_val} po
     \item El \textbf{$R^2$ reducido} de todos los modelos (máximo de 0,0804) es el hallazgo más significativo del experimento de regresión. Indica que las variables disponibles en el \textit{dataset} explican una fracción limitada de la varianza en la duración de las relaciones, lo que es coherente con la naturaleza del problema: la longevidad relacional depende de factores dinámicos, contextuales y emocionales que difícilmente se capturan con un perfil estático de características.
 \end{itemize}
 
+\subsection{Importancia relativa de variables por modelo en regresión}
+
+La Figura~\ref{fig:importancia_variables_regresion} muestra la importancia relativa de las variables en los distintos modelos de regresión. A diferencia del caso de clasificación, no se observa una variable dominante. La importancia se distribuye entre múltiples características.
+
+Destacan variables como \texttt{overall\_match\_score}, \texttt{same\_love\_language} y diferencias en rasgos individuales como \texttt{emotional\_expressiveness\_diff} o \texttt{spontaneity\_diff}, especialmente en modelos no lineales como Random Forest y Gradient Boosting.
+
+Sin embargo, la variabilidad en la importancia entre modelos y la ausencia de patrones consistentes reflejan la dificultad del problema y la limitada capacidad explicativa de las variables disponibles.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.80\textwidth]{Pictures/importancia_variables_regresion.png}
+  \caption{Importancia relativa de las variables en los modelos de regresión. Los valores están normalizados por modelo y muestran una distribución más homogénea de la relevancia, sin variables claramente dominantes.}
+  \label{fig:importancia_variables_regresion}
+\end{figure}
 \subsection{Evaluación Final del Modelo Seleccionado: Regresión Ridge}
 
 Tras seleccionar Ridge como mejor modelo, su evaluación sobre el \textbf{conjunto de test} se presenta en la Tabla~\ref{tab:resultados_regresion_test}.
