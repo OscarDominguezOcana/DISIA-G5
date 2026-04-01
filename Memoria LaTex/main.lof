@@ -11,3 +11,5 @@
 \contentsline {figure}{\numberline {7}{\ignorespaces Análisis de sesgos estructurales: Afinidad en ambición profesional (izquierda) y diagrama de violín para la diferencia de edad (derecha).}}{20}{figure.0.7}%
 \contentsline {figure}{\numberline {8}{\ignorespaces Matriz de contingencia térmica (\textit {Heatmap}): Tasa de compatibilidad porcentual según el cruce de los lenguajes del amor entre ambos individuos.}}{21}{figure.0.8}%
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {9}{\ignorespaces Importancia relativa de las variables en los modelos de clasificación. Los valores están normalizados por modelo y permiten comparar la relevancia de cada característica en la predicción de la compatibilidad.}}{29}{figure.0.9}%
+\contentsline {figure}{\numberline {10}{\ignorespaces Importancia relativa de las variables en los modelos de regresión. Los valores están normalizados por modelo y muestran una distribución más homogénea de la relevancia, sin variables claramente dominantes.}}{32}{figure.0.10}%
