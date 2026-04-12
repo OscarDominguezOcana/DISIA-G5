@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber main"] 1774776347.26081 "main.bcf" "main.bbl" "main" 1774972234.08186 0
+["biber main"] 1774776347.26081 "main.bcf" "main.bbl" "main" 1775073295.53382 0
   "biblio.bib" 1774776365 1639 71041f3d996e9a2e261437ebae9bcb3c ""
-  "main.bcf" 1774972233 109012 ec8877ac4853f617d3b337d75e07d157 "pdflatex"
+  "main.bcf" 1775073295 109012 ec8877ac4853f617d3b337d75e07d157 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1774972230.39273 "c:/Users/Usuario/OneDrive - Universidad de Castilla-La Mancha/MASTER INTELIGENCIA ARTIFICIAL/2o Cuatrimestre/DESARROLLO E INTEGRACIÓN DE SERVICIOS DE IA/PRÁCTICA/GIT/DISIA-G5/Memoria LaTex/main.tex" "main.pdf" "main" 1774972234.08287 0
+["pdflatex"] 1775073291.29651 "c:/Users/Usuario/OneDrive - Universidad de Castilla-La Mancha/MASTER INTELIGENCIA ARTIFICIAL/2o Cuatrimestre/DESARROLLO E INTEGRACIÓN DE SERVICIOS DE IA/PRÁCTICA/GIT/DISIA-G5/Memoria LaTex/main.tex" "main.pdf" "main" 1775073295.53486 0
   "C:/Users/Usuario/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1771872228 84461 bcd91a7f355ba89dbf231c7109dc8c52 ""
   "C:/Users/Usuario/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecsx1440.pk" 1771872225 34676 31639f95aa13b06375343927420c2de8 ""
   "C:/Users/Usuario/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ectt0900.pk" 1773175783 17512 19bb41a039bcf47de47e61091fca3514 ""
@@ -327,6 +327,8 @@
   "Pictures/24_records_comp.png" 1774773884 27984 15565604524e62f3c3d07634b0554c4f ""
   "Pictures/Objetivos.png" 1774773884 35993 ee60d8400c49cdd641b9f32f8e4573c0 ""
   "Pictures/distribuciones_targets.png" 1774773884 68128 ff50567aca2002ca102af7996c5dc346 ""
+  "Pictures/importancia_variables_clasificacion.png" 1775073259 62646 fb6d1554c5b894562965b92437da106c ""
+  "Pictures/importancia_variables_regresion.png" 1775073259 59374 f8b315ea939304e3f7b578fee5f1624c ""
   "Pictures/logos_uclm_esi.jpg" 1774773884 202881 2108fce2cbba49a7286e3fc2b204dbb2 ""
   "Pictures/matriz_lenguajes_amor.png" 1774800900 72929 80fbe232ca89f13e2182164eee75ed68 ""
   "Pictures/sesgo_supervivencia_5meses.png" 1774800530 32326 6d57955fabe99f6948732d5276b53546 ""
@@ -334,22 +336,22 @@
   "Pictures/uclm.png" 1774773884 9818 4c00bf93deb147ba69c99c175bafebe1 ""
   "ULBreport.cls" 1774773884 6606 23761f43a0ef3009b41067e165ecdfca ""
   "c:/Users/Usuario/OneDrive - Universidad de Castilla-La Mancha/MASTER INTELIGENCIA ARTIFICIAL/2o Cuatrimestre/DESARROLLO E INTEGRACIÓN DE SERVICIOS DE IA/PRÁCTICA/GIT/DISIA-G5/Memoria LaTex/main.tex" 1774773884 1190 e4ec6d30033656bbb75ab461c7acef37 ""
-  "common/packages.tex" 1774773884 120 5c014c7ea6e10532e8c2ad0bff437221 ""
+  "common/packages.tex" 1775073259 140 f8bcc5f74af775b8242c2008fc33a01a ""
   "content/chapters.tex" 1774971596 288 cfe42d73893ca90d616c031372a1b5ce ""
   "content/chapters/chapter1.tex" 1774773884 22777 c3061d929bf6f6fb859cd4984f730551 ""
   "content/chapters/chapter2.tex" 1774800565 23023 9284679e669fc6f3c7a93790e1dd4cc9 ""
-  "content/chapters/chapter3.tex" 1774972229 20524 7d1a6134753bac94a3b0a81419551c6e ""
+  "content/chapters/chapter3.tex" 1775073259 23071 46a56d826bfedde114b4f7a6e0253444 ""
   "content/chapters/introduction.tex" 1774773884 4335 0b7552b4ff5343184e0b99c8fa63f79d ""
   "main.acr" 0 -1 0 ""
-  "main.aux" 1774972233 15608 3c65e57c74ff452aac2c1bd9e13f0bf9 "pdflatex"
+  "main.aux" 1775073295 17126 8d0dcd49fe03b27a9640fcab4403ea85 "pdflatex"
   "main.bbl" 1774776349 7371 4c69bb310f748a1c613f2c94e67e629e "biber main"
   "main.gls" 0 -1 0 ""
-  "main.lof" 1774972233 1933 53587916fe7eaf271b69b3297c59c19b "pdflatex"
-  "main.lot" 1774972233 1491 68068a2f7943831d8d6c5f1136bef7a7 "pdflatex"
-  "main.out" 1774972233 10177 91be5c1a2d5d9956f235b77bd1fc7871 "pdflatex"
-  "main.run.xml" 1774972233 2307 9b1ca650c1ebcf623a37c8e2afd30f3a "pdflatex"
+  "main.lof" 1775073295 2503 be1ba6d4d6274863ab927970eccce315 "pdflatex"
+  "main.lot" 1775073295 1491 787de65e33ddec7f946240139164393b "pdflatex"
+  "main.out" 1775073295 10929 3dfb3e72560ced934213f3c6f64421b0 "pdflatex"
+  "main.run.xml" 1775073295 2307 9b1ca650c1ebcf623a37c8e2afd30f3a "pdflatex"
   "main.tex" 1774773884 1190 e4ec6d30033656bbb75ab461c7acef37 ""
-  "main.toc" 1774972233 3568 c27e610b29ed08731c945c0a8cfb179c "pdflatex"
+  "main.toc" 1775073295 3782 a0859b3aeb8a993316ad15f78bd95cb7 "pdflatex"
   (generated)
   "main.acn"
   "main.aux"
