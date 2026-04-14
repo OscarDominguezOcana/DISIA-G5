@@ -49,6 +49,10 @@ Entre las características con mayor puntuación de información mutua para la t
 
 Siguiendo el criterio de diversidad metodológica, se seleccionaron \textbf{cinco algoritmos} para cada tarea, abarcando desde modelos lineales e interpretables hasta conjuntos (\textit{ensembles}) más complejos. La Tabla~\ref{tab:modelos_clasificacion} y la Tabla~\ref{tab:modelos_regresion} recogen la configuración de hiperparámetros utilizada.
 
+Para abordar el problema de predicción de compatibilidad, se han seleccionado distintos modelos de aprendizaje automático con el objetivo de comparar cómo se comportan enfoques diferentes sobre el mismo conjunto de datos. Se parte de un modelo lineal como la regresión logística, para evaluar si las variables generadas durante la ingeniería de características son suficientes para explicar la compatibilidad. A partir de ahí, se incluyen modelos más complejos como árboles de decisión, métodos ensemble (Random Forest y Gradient Boosting) y KNN, que permiten capturar relaciones no lineales, interacciones complejas y similitudes entre perfiles.
+
+Los hiperparámetros se han fijado siguiendo valores habituales en la práctica, buscando configuraciones razonables sin excesiva complejidad. En árboles se han limitado parámetros como la profundidad para evitar sobreajuste, en KNN se ha utilizado un número reducido de vecinos y en regresión logística una configuración estándar. No se ha realizado una optimización exhaustiva, ya que el objetivo es comparar modelos de forma equilibrada. Como mejora futura, sería interesante ajustar los hiperparámetros de manera más sistemática, especialmente en modelos más sensibles como Decision Tree, Random Forest, Gradient Boosting y KNN.
+
 \begin{table}[H]
 \centering
 \footnotesize
@@ -64,6 +68,10 @@ K-Vecinos más Cercanos & KNN & \texttt{StandardScaler}; parámetros por defecto
 \caption{Configuración de los modelos evaluados para la tarea de clasificación binaria (\texttt{compatible}).}
 \label{tab:modelos_clasificacion}
 \end{table}
+
+Para la predicción de la longevidad de la relación se han utilizado las versiones de regresión de los modelos empleados en clasificación, manteniendo así coherencia y facilitando la comparación entre ambos enfoques. En concreto, se han incluido modelos como Ridge, árboles de decisión, Random Forest, Gradient Boosting y KNN en su versión de regresión, con el objetivo de analizar cómo se comportan estas mismas familias al predecir una variable continua como la duración de la relación.
+
+Los hiperparámetros se han ajustado de forma similar a la tarea de clasificación, utilizando valores conservadores para evitar configuraciones demasiado complejas. No se ha realizado una optimización exhaustiva, ya que el objetivo principal es comparar modelos de manera equilibrada. Como mejora futura, sería interesante estudiar el impacto de un ajuste más detallado, especialmente en modelos como Random Forest, Gradient Boosting y KNN.
 
 \begin{table}[H]
 \centering
@@ -139,6 +147,26 @@ El análisis de la Tabla~\ref{tab:resultados_clasificacion_val} revela varios pa
 
     \item \textbf{Árbol de Decisión} y \textbf{KNN} quedan por detrás en todas las métricas principales, siendo los candidatos descartados.
 \end{itemize}
+
+Las matrices de confusión obtenidas en los conjuntos de validación y test muestran un comportamiento consistente del modelo, lo que indica una buena capacidad de generalización.
+
+Se observa que el modelo es capaz de clasificar correctamente un número elevado de instancias en ambas clases, manteniendo un equilibrio razonable entre verdaderos positivos y verdaderos negativos. No obstante, se aprecia una mayor presencia de falsos positivos frente a falsos negativos, lo que sugiere que el modelo tiende a predecir la compatibilidad en mayor medida de lo debido. Este comportamiento puede interpretarse como una cierta inclinación del modelo hacia decisiones más permisivas en términos de compatibilidad.
+
+En conjunto, los resultados reflejan un rendimiento sólido y coherente con las métricas obtenidas previamente, validando la elección del modelo de regresión logística como solución adecuada para este problema.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.55\textwidth]{Memoria LaTex/Pictures/matriz_validación.png}
+  \caption{Matriz de confusión en validación}
+  \label{fig:matriz_validación}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.55\textwidth]{Memoria LaTex/Pictures/matriz_test.png}
+  \caption{Matriz de confusión en test}
+  \label{fig:matriz_test}
+\end{figure}
 
 \subsection{Importancia relativa de variables por modelo en clasificación}
 
@@ -287,3 +315,9 @@ El proceso de experimentación y validación ha permitido extraer las siguientes
 
     \item \textbf{Reproducibilidad:} Todos los experimentos se han ejecutado con \texttt{random\_state=42} y los resultados son completamente reproducibles a partir del \textit{notebook} adjunto al repositorio del proyecto.
 \end{enumerate}
+
+Los resultados obtenidos ponen de manifiesto una diferencia clara entre ambos problemas: mientras que la compatibilidad puede modelarse de forma razonable a partir de variables estructuradas y relaciones entre perfiles, la longevidad presenta una mayor complejidad y menor capacidad explicativa con la información disponible.
+
+Esto refuerza la idea de que no todos los problemas dentro de un mismo dominio presentan el mismo grado de dificultad, y destaca la importancia de analizar no solo el rendimiento de los modelos, sino también la naturaleza de la variable objetivo y la información disponible.
+
+Como líneas futuras de trabajo, se plantea la posibilidad de incorporar nuevas variables, aplicar técnicas de optimización de hiperparámetros o utilizar modelos más complejos que permitan capturar relaciones no lineales más profundas, especialmente en la tarea de regresión.
