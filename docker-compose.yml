@@ -1,0 +1,29 @@
+services:
+  # Contenedor 1: Entrenamiento
+  train:
+    build:
+      context: .
+      dockerfile: Dockerfile.train
+    volumes:
+      # Dataset de entrada
+      - ./data/raw:/app/data/raw:ro
+      # Modelos de salida
+      - ./models_output:/app/models
+    environment:
+      - DATA_PATH=/app/data/raw/cupid_algorithm_dataset.csv
+      - MODELS_DIR=/app/models
+
+  # Contenedor 2: API de Inferencia
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    ports:
+      - "8000:8000"
+    volumes:
+      # Modelos entrenados
+      - ./models_output:/app/models:ro
+    environment:
+      - CLF_MODEL_PATH=/app/models/clf_model.pkl
+      - REG_MODEL_PATH=/app/models/reg_model.pkl
+    # Ejecutar en orden: primero 'train', luego 'api' (ver README)

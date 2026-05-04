@@ -1,0 +1,26 @@
+# ─────────────────────────────────────────────────────────
+# Dockerfile.api
+# Imagen de inferencia de CORE-MP.
+#
+# Responsabilidades:
+#   1. Expone la API REST en el puerto 8000
+#   2. Carga los modelos serializados desde /app/models/
+#   3. Responde peticiones POST /predict
+#
+# ─────────────────────────────────────────────────────────
+FROM python:3.12-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY src/ ./src/
+
+# Variables de entorno por defecto
+ENV CLF_MODEL_PATH=/app/models/clf_model.pkl
+ENV REG_MODEL_PATH=/app/models/reg_model.pkl
+
+EXPOSE 8000
+
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]

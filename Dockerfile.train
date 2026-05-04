@@ -1,0 +1,27 @@
+# ─────────────────────────────────────────────────────────
+# Dockerfile.train
+# Imagen de entrenamiento de CORE-MP.
+#
+# Responsabilidades:
+#   1. Carga el dataset desde el volumen /app/data/raw/
+#   2. Genera features (stateless)
+#   3. Entrena LogisticRegression (clf) y Ridge (reg)
+#   4. Serializa ambos modelos en /app/models/ (volumen compartido)
+#
+# ─────────────────────────────────────────────────────────
+FROM python:3.12-slim
+
+WORKDIR /app
+
+# Instalar dependencias primero (aprovecha caché de capas Docker)
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copiar código fuente
+COPY src/ ./src/
+
+# Variables de entorno por defecto (sobreescribibles desde docker-compose)
+ENV DATA_PATH=/app/data/raw/cupid_algorithm_dataset.csv
+ENV MODELS_DIR=/app/models
+
+CMD ["python", "-m", "src.training.service"]
