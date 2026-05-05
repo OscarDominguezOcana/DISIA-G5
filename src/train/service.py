@@ -23,7 +23,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
-from src.config import DATA_PATH, MODELS_DIR, RANDOM_STATE
+from src.config import DATA_PATH, MODELS_DIR, RANDOM_STATE, TEST_SIZE
 from src.data.service import load_dataset
 from src.features.service import create_pair_features, get_clf_features, get_reg_features
 
@@ -53,10 +53,10 @@ def train() -> None:
     fe["relationship_longevity_months"] = df["relationship_longevity_months"].values
     
     idx_train, idx_temp = train_test_split(
-        fe.index, test_size=0.30, random_state=RANDOM_STATE, stratify=fe["compatible"]
+        fe.index, test_size=2 * TEST_SIZE, random_state=RANDOM_STATE, stratify=fe["compatible"]
     )
     idx_test = train_test_split(
-        idx_temp, test_size=0.50, random_state=RANDOM_STATE,
+        idx_temp, test_size=0.5, random_state=RANDOM_STATE,
         stratify=fe.loc[idx_temp, "compatible"]
     )[1]
 

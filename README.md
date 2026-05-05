@@ -191,14 +191,30 @@ Métricas del modelo final (Hito 3):
 ```
 DISIA-G5/
 ├── src/
-│   ├── data_ingestion.py   # Carga del CSV
-│   ├── features.py         # Feature engineering (stateless)
-│   ├── train.py            # Entrenamiento y serialización
-│   ├── infer.py            # CupidPredictor (carga y predicción)
-│   └── api.py              # FastAPI (endpoints REST)
+│   ├── config.py               # Variables de entorno y parámetros globales
+│   ├── exceptions.py           # Excepción base CupidAlgorithmError
+│   ├── main.py                 # App FastAPI + lifespan + include_router
+│   ├── data/
+│   │   └── service.py          # load_dataset()
+│   ├── features/
+│   │   ├── constants.py        # CLF_FEATURES, REG_FEATURES, PERSONALITY_TRAITS
+│   │   └── service.py          # create_pair_features(), get_*_features()
+│   ├── train/
+│   │   └── service.py          # train() — entrenamiento y serialización
+│   ├── infer/
+│   │   ├── service.py          # CupidPredictor
+│   │   ├── router.py           # POST /predict
+│   │   ├── schemas.py          # PersonFeatures, CompatibilityRequest/Response
+│   │   ├── dependencies.py     # get_predictor(request)
+│   │   └── exceptions.py       # ModelNotFoundError, PredictionError
+│   └── monitor/
+│       ├── service.py          # MetricsTracker (thread-safe)
+│       ├── router.py           # GET /health, GET /metrics
+│       ├── schemas.py          # HealthResponse, MetricsResponse
+│       └── dependencies.py     # get_metrics(request)
 ├── data/
-│   └── raw/                # Dataset de entrada (montar como volumen)
-├── models_output/          # Modelos serializados (generado por train)
+│   └── raw/                    # Dataset de entrada (volumen Docker)
+├── models_output/              # Modelos serializados (generado por train)
 ├── Dockerfile.train
 ├── Dockerfile.api
 ├── docker-compose.yml

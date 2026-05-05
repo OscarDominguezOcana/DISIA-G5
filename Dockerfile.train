@@ -24,4 +24,4 @@ COPY src/ ./src/
 ENV DATA_PATH=/app/data/raw/cupid_algorithm_dataset.csv
 ENV MODELS_DIR=/app/models
 
-CMD ["python", "-m", "src.training.service"]
+CMD ["python", "-m", "src.train.service"]
