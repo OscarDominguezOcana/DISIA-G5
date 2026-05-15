@@ -9,6 +9,7 @@ Arranque:
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
+from prometheus_fastapi_instrumentator import Instrumentator  # ← AÑADIR
 
 from src.monitor.router import router as monitoring_router
 from src.monitor.service import MetricsTracker
@@ -38,3 +39,5 @@ app = FastAPI(
 
 app.include_router(predict_router)
 app.include_router(monitoring_router)
+
+Instrumentator().instrument(app).expose(app, endpoint="/metrics/prometheus")

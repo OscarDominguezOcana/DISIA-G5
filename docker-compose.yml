@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile.train
     volumes:
       # Dataset de entrada
-      - ./data/raw:/app/data/raw:ro
+      - ./cupid_algorithm_dataset.csv:/app/data/raw/cupid_algorithm_dataset.csv:ro
       # Modelos de salida
       - ./models_output:/app/models
     environment:
@@ -23,7 +23,57 @@ services:
     volumes:
       # Modelos entrenados
       - ./models_output:/app/models:ro
+      - ./data/monitoring:/app/data/monitoring
     environment:
       - CLF_MODEL_PATH=/app/models/clf_model.pkl
       - REG_MODEL_PATH=/app/models/reg_model.pkl
+      - MONITORING_DIR=/app/data/monitoring
     # Ejecutar en orden: primero 'train', luego 'api' (ver README)
+
+    # Contenedor 3: Prometheus
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - api
+
+  # Contenedor 4: Push Gateway (para métricas del DAG de drift)
+  pushgateway:
+    image: prom/pushgateway:latest
+    ports:
+      - "9091:9091"
+
+  # Contenedor 5: Grafana
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      - prometheus
+
+  # Contenedor 6: Airflow (orquestador del feedback loop)
+  airflow:
+    image: apache/airflow:2.9.0-python3.11
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./monitoring/dags:/opt/airflow/dags
+      - ./data/monitoring:/app/data/monitoring
+      - ./models_output:/app/models
+      - /var/run/docker.sock:/var/run/docker.sock  # para poder lanzar el contenedor train
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=SequentialExecutor
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - API_URL=http://api:8000
+    command: standalone
+    depends_on:
+      - api
+      - pushgateway

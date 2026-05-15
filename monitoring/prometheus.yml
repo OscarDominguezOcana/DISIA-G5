@@ -1,0 +1,16 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  # Métricas operativas de la API FastAPI
+  - job_name: "core_mp_api"
+    metrics_path: /metrics/prometheus
+    static_configs:
+      - targets: ["api:8000"]
+
+  # Métricas de drift empujadas por el DAG de Airflow
+  - job_name: "pushgateway"
+    honor_labels: true
+    static_configs:
+      - targets: ["pushgateway:9091"]
