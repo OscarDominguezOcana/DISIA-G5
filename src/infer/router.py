@@ -2,6 +2,7 @@
 import time
 
 from fastapi import APIRouter, Depends, HTTPException, Request
+from prometheus_client import Counter  # ← NUEVO
 
 from src.monitor.dependencies import get_metrics
 from src.monitor.service import MetricsTracker
@@ -12,6 +13,15 @@ from src.infer.schemas import CompatibilityRequest, CompatibilityResponse
 from src.infer.service import CupidPredictor
 
 router = APIRouter(tags=["Inferencia"])
+
+# ─── Métricas Prometheus custom ───────────────────────────────────────────────
+# Contador acumulado de predicciones realizadas con éxito.
+# Se expone automáticamente en /metrics/prometheus gracias al instrumentator.
+predictions_total = Counter(
+    "predictions_total",
+    "Número total de predicciones realizadas por la API CORE-MP",
+    ["compatible"],  # etiqueta: true/false según el resultado del clasificador
+)
 
 
 @router.post("/predict", response_model=CompatibilityResponse)
@@ -32,6 +42,9 @@ def predict(
 
     latency_ms = (time.perf_counter() - t_start) * 1000
     metrics.record(latency_ms)
+
+    # Incrementa el contador de Prometheus (separado por compatible/incompatible)
+    predictions_total.labels(compatible=str(result.get("compatible", False)).lower()).inc()
 
     log_input(request.person_a.model_dump(), request.person_b.model_dump(), result)
 
