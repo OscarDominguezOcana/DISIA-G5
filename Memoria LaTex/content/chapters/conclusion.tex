@@ -1,4 +1,12 @@
 \setcounter{secnumdepth}{-1}
 
-\chapter{Conclusion}
+\chapter{Conclusiones}
+\label{cap:conclusiones}
 
+El proyecto \textit{CORE-MP} ha recorrido de forma íntegra el ciclo de vida de un sistema MLOps: desde el análisis exploratorio del \textit{dataset} \textit{Cupid's Algorithm} (100.000 parejas, 30 variables) hasta la monitorización continua y el reentrenamiento automático en producción.
+
+El análisis de datos confirmó que la compatibilidad relacional responde a un patrón de \textbf{homofilia}, lo que orientó la ingeniería de características hacia diferencias y similitudes entre los rasgos de ambos individuos. Sobre esta base se entrenaron dos modelos interpretables: Regresión Logística para clasificación (F1~=~0{,}68, ROC-AUC~=~0{,}79) y Ridge para regresión (MAE~=~16{,}27 meses). La elección de modelos interpretables frente a alternativas de mayor capacidad fue deliberada: en el ámbito de las relaciones humanas, la explicabilidad y la robustez ante distribuciones de producción tienen más valor que una ganancia marginal en métricas de validación.
+
+El sistema se desplegó con FastAPI y Docker, serializando el \texttt{Pipeline} completo de scikit-learn para eliminar cualquier \textit{training-serving skew}. La capa de monitorización (Prometheus, Grafana, Evidently, Airflow) cierra un ciclo de \textit{Continuous Training} autónomo: detecta drift cada hora y, cuando supera el umbral del 50\%, reentrena y recarga los modelos sin interrumpir el servicio, notificando al equipo vía Telegram.
+
+El principal aprendizaje del proyecto es que \textbf{la calidad de un sistema ML no se mide solo por sus métricas de validación, sino por su capacidad de operar de forma fiable y autónoma en producción}. Como trabajo futuro, destacan la incorporación de la tarea de \textit{ranking} (MRR, MAP) a la API, umbrales de drift adaptativos y técnicas de explicabilidad (SHAP) en la respuesta de predicción.

@@ -1,15 +1,26 @@
 \babel@toc {english}{}\relax 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1}{\ignorespaces Flujo metodológico del sistema CORE-MP desde la definición del problema hasta el análisis de viabilidad.}}{8}{figure.0.1}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2}{\ignorespaces Extracto de los datos del Individuo A correspondientes a los 24 primeros emparejamientos evaluados. Se aprecian las variables demográficas y las métricas del modelo \textit {Big Five}.}}{17}{figure.0.2}%
-\contentsline {figure}{\numberline {3}{\ignorespaces Extracto de los datos del Individuo B correspondientes a los 24 primeros emparejamientos. Nótese la obligatoria correspondencia del campo \texttt {pair\_id} con el Individuo A para posibilitar el emparejamiento.}}{17}{figure.0.3}%
-\contentsline {figure}{\numberline {4}{\ignorespaces Representación de las variables objetivo que definen el nivel de satisfaction y viabilidad de la relación, correspondientes a los 24 primeros registros del conjunto de datos.}}{18}{figure.0.4}%
-\contentsline {figure}{\numberline {5}{\ignorespaces Distribución de las variables objetivo: densidad del score (izq.), balance de clases (centro) y longevidad (der.).}}{19}{figure.0.5}%
-\contentsline {figure}{\numberline {6}{\ignorespaces Distribución de registros según su longevidad agrupada en intervalos de 5 meses. Se aprecia la fuerte caída temprana de las relaciones incompatibles.}}{19}{figure.0.6}%
-\contentsline {figure}{\numberline {7}{\ignorespaces Análisis de sesgos estructurales: Afinidad en ambición profesional (izquierda) y diagrama de violín para la diferencia de edad (derecha).}}{20}{figure.0.7}%
-\contentsline {figure}{\numberline {8}{\ignorespaces Matriz de contingencia térmica (\textit {Heatmap}): Tasa de compatibilidad porcentual según el cruce de los lenguajes del amor entre ambos individuos.}}{21}{figure.0.8}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Extracto de los datos del Individuo A correspondientes a los 24 primeros emparejamientos evaluados. Se aprecian las variables demográficas y las métricas del modelo \textit {Big Five}.}}{17}{figure.2.1}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Extracto de los datos del Individuo B correspondientes a los 24 primeros emparejamientos. Nótese la obligatoria correspondencia del campo \texttt {pair\_id} con el Individuo A para posibilitar el emparejamiento.}}{17}{figure.2.2}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Representación de las variables objetivo que definen el nivel de satisfaction y viabilidad de la relación, correspondientes a los 24 primeros registros del conjunto de datos.}}{18}{figure.2.3}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Distribución de las variables objetivo: densidad del score (izq.), balance de clases (centro) y longevidad (der.).}}{19}{figure.2.4}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Distribución de registros según su longevidad agrupada en intervalos de 5 meses. Se aprecia la fuerte caída temprana de las relaciones incompatibles.}}{19}{figure.2.5}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Análisis de sesgos estructurales: Afinidad en ambición profesional (izquierda) y diagrama de violín para la diferencia de edad (derecha).}}{20}{figure.2.6}%
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Matriz de contingencia térmica (\textit {Heatmap}): Tasa de compatibilidad porcentual según el cruce de los lenguajes del amor entre ambos individuos.}}{21}{figure.2.7}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {9}{\ignorespaces Importancia relativa de las variables en los modelos de clasificación. Los valores están normalizados por modelo y permiten comparar la relevancia de cada característica en la predicción de la compatibilidad.}}{29}{figure.0.9}%
-\contentsline {figure}{\numberline {10}{\ignorespaces Importancia relativa de las variables en los modelos de regresión. Los valores están normalizados por modelo y muestran una distribución más homogénea de la relevancia, sin variables claramente dominantes.}}{32}{figure.0.10}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Matriz de confusión en validación}}{30}{figure.3.1}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Matriz de confusión en test}}{31}{figure.3.2}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Importancia relativa de las variables en los modelos de clasificación. Los valores están normalizados por modelo y permiten comparar la relevancia de cada característica en la predicción de la compatibilidad.}}{32}{figure.3.3}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Importancia relativa de las variables en los modelos de regresión. Los valores están normalizados por modelo y muestran una distribución más homogénea de la relevancia, sin variables claramente dominantes.}}{34}{figure.3.4}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Arquitectura de dos contenedores del sistema CORE-MP. El volumen compartido actúa como contrato entre el pipeline de entrenamiento y el servicio de inferencia.}}{38}{figure.4.1}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Flujo de datos del stack de monitorización. Flechas sólidas: métricas; discontinuas: acciones de control del feedback loop.}}{45}{figure.5.1}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Dashboard de Grafana con los cuatro paneles de monitorización operativa de CORE-MP en tiempo real.}}{46}{figure.5.2}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Reglas de alerta en Grafana. Izquierda: ``API caída'' (consulta \texttt {up\{job="core\_mp\_api"\}}, umbral \textit {below}~1). Derecha: ``Latencia P95 alta'' (\texttt {histogram\_quantile(0.95,\,\ldots )}, umbral \textit {above}~0.5~s). Ambas notifican vía \textit {contact point} \texttt {telegram-g5}.}}{47}{figure.5.3}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Pantalla de \textit {Contact points} de Grafana: el canal \texttt {telegram-g5} aparece asociado a 1 política de notificación y 2 reglas de alerta, con última entrega hace 2 minutos.}}{48}{figure.5.4}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Ciclo completo de alerta vía Telegram: mensaje \textbf {FIRING} (izquierda) al caer la API y \textbf {RESOLVED} (derecha) al recuperarse, ~1~min después.}}{48}{figure.5.5}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Ciclo de vida continuo del modelo CORE-MP: las predicciones alimentan la detección de drift, que activa el reentrenamiento y la recarga sin interrumpir el servicio.}}{49}{figure.5.6}%
+\addvspace {10\p@ }
