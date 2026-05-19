@@ -49,12 +49,11 @@ El sistema completo se compone de seis contenedores orquestados por Docker Compo
 | --- | --- | --- | --- |
 | `train` | Build local (`Dockerfile.train`) | — | Entrena los modelos y termina |
 | `api` | Build local (`Dockerfile.api`) | 8000 | API FastAPI de predicción + endpoint `/metrics/prometheus` |
-| `prometheus` | `prom/prometheus:latest` | 9092 | Scraping de métricas, evaluación de queries |
+| `prometheus` | `prom/prometheus:latest` | 9090 | Scraping de métricas, evaluación de queries |
 | `pushgateway` | `prom/pushgateway:latest` | 9091 | Recepción de métricas de drift desde Airflow |
 | `grafana` | `grafana/grafana:latest` | 3000 | Visualización + alerting |
 | `airflow` | `apache/airflow:2.9.0-python3.11` | 8080 | Orquestador del feedback loop de drift |
 
-> Nota: el puerto de Prometheus se movió de 9090 a 9092 por conflicto local con Proxyman. Dentro de la red Docker, Grafana sigue accediendo a Prometheus por `http://prometheus:9090`; el cambio solo afecta al acceso desde el navegador del host.
 
 ### Flujo de datos de la monitorización
 
@@ -111,18 +110,7 @@ predictions_total.labels(
 
 La etiqueta `compatible=true/false` permite además ver el reparto entre predicciones positivas y negativas si se desea ampliar el dashboard en el futuro.
 
-### 3.2 Puerto de Prometheus
-
-Para evitar el conflicto con Proxyman (que en el equipo de desarrollo ocupaba el puerto 9090), se cambió el mapeo del contenedor en `docker-compose.yml`:
-
-```yaml
-prometheus:
-  image: prom/prometheus:latest
-  ports:
-    - "9092:9090"   # antes: "9090:9090"
-```
-
-### 3.3 UID fijo en el datasource provisionado
+### 3.2 UID fijo en el datasource provisionado
 
 Grafana genera por defecto un UID aleatorio para los datasources, lo que rompe los dashboards provisionados que referencian un UID concreto. Para evitarlo, se forzó el UID en `monitoring/grafana/provisioning/datasources/datasource.yml`:
 
@@ -492,15 +480,7 @@ Regla vuelve a `Normal` y llega mensaje `[RESOLVED]`. ✅
 
 ## 9. Incidencias encontradas y resoluciones
 
-### 9.1 Conflicto de puerto 9090 con Proxyman
-
-**Síntoma:** al abrir `http://localhost:9090/targets`, aparece la página de Proxyman en lugar de Prometheus.
-
-**Causa:** Proxyman ocupaba el puerto 9090 en el equipo de desarrollo.
-
-**Resolución:** se cambió el mapeo en `docker-compose.yml` a `9092:9090`. La comunicación interna entre Grafana y Prometheus no se ve afectada (sigue usando `http://prometheus:9090` por la red Docker).
-
-### 9.2 Dashboard provisionado sin datos por UID de datasource incorrecto
+### 9.1 Dashboard provisionado sin datos por UID de datasource incorrecto
 
 **Síntoma:** dashboard cargado correctamente pero los cuatro paneles muestran "No data".
 
@@ -508,7 +488,7 @@ Regla vuelve a `Normal` y llega mensaje `[RESOLVED]`. ✅
 
 **Resolución:** se forzó el UID en `monitoring/grafana/provisioning/datasources/datasource.yml` añadiendo `uid: prometheus`. Tras recrear el contenedor de Grafana, el UID coincide y los paneles encuentran su datasource.
 
-### 9.3 Bot de Telegram con privacidad activada por defecto
+### 9.2 Bot de Telegram con privacidad activada por defecto
 
 **Síntoma:** la URL `https://api.telegram.org/bot<TOKEN>/getUpdates` devolvía `{"ok":true,"result":[]}` aunque el bot estaba en el grupo y había mensajes.
 
@@ -516,7 +496,7 @@ Regla vuelve a `Normal` y llega mensaje `[RESOLVED]`. ✅
 
 **Resolución:** se desactivó el Privacy Mode desde @BotFather (`/mybots` → Bot Settings → Group Privacy → Turn off) y se quitó y volvió a añadir el bot al grupo para que el cambio surtiera efecto.
 
-### 9.4 Métrica `predictions_total` no existía
+### 9.3 Métrica `predictions_total` no existía
 
 **Síntoma:** el panel "Total predicciones" no encuentra datos aunque `prometheus-fastapi-instrumentator` esté activo.
 
@@ -526,54 +506,13 @@ Regla vuelve a `Normal` y llega mensaje `[RESOLVED]`. ✅
 
 ---
 
-## 10. Cierre — commit y reproducibilidad
+## 10. Cierre
 
-### 10.1 Comandos de cierre
-
-```bash
-git checkout hito_5
-
-git add monitoring/grafana/dashboards/grafana_dashboard.json
-git add monitoring/grafana/provisioning/dashboards/dashboards.yml
-git add monitoring/grafana/provisioning/datasources/datasource.yml
-git add src/infer/router.py
-git add docker-compose.yml
-git add GUIA_HITO5.md
-git add HITO5_EJECUCION_COMPLETA.md
-
-git commit -m "feat(hito5): monitorización con Grafana y alertas Telegram
-
-- Dashboard provisionado con 4 paneles: request rate, latencia P95, total
-  predicciones y tasa de errores 5xx.
-- Datasource Prometheus con UID fijo para provisioning idempotente.
-- Métrica custom predictions_total en src/infer/router.py.
-- Alertas: API caída (up==0) y latencia P95 > 0.5s, ambas vía contact
-  point telegram-g5.
-- Puertos ajustados: Prometheus a 9092 (conflicto local con Proxyman)."
-
-git push origin hito_5
-```
-
-### 10.2 Detener el stack
+### 10.1 Detener el stack
 
 ```bash
 docker compose down
 ```
-
-### 10.3 Reproducibilidad
-
-Para reproducir el hito en una nueva máquina basta con:
-
-```bash
-git clone <repo>
-cd DISIA-G5
-git checkout hito_5
-docker compose run --rm train     # solo la primera vez
-docker compose up -d
-```
-
-El único paso manual restante es la configuración del contact point y las alertas en la UI de Grafana, ya que contienen credenciales sensibles (token del bot, chat_id) que no se versionan. Estos pasos están detallados en las secciones 6 y 7 de este documento.
-
 ---
 
 ## 11. Enlaces del grupo
