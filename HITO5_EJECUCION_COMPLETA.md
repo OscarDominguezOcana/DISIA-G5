@@ -49,7 +49,7 @@ El sistema completo se compone de seis contenedores orquestados por Docker Compo
 | --- | --- | --- | --- |
 | `train` | Build local (`Dockerfile.train`) | — | Entrena los modelos y termina |
 | `api` | Build local (`Dockerfile.api`) | 8000 | API FastAPI de predicción + endpoint `/metrics/prometheus` |
-| `prometheus` | `prom/prometheus:latest` | 9090 | Scraping de métricas, evaluación de queries |
+| `prometheus` | `prom/prometheus:latest` | 9092 | Scraping de métricas, evaluación de queries |
 | `pushgateway` | `prom/pushgateway:latest` | 9091 | Recepción de métricas de drift desde Airflow |
 | `grafana` | `grafana/grafana:latest` | 3000 | Visualización + alerting |
 | `airflow` | `apache/airflow:2.9.0-python3.11` | 8080 | Orquestador del feedback loop de drift |
@@ -66,7 +66,7 @@ El sistema completo se compone de seis contenedores orquestados por Docker Compo
                                     │ scrape /15s
                                     ▼
                          ┌─────────────────────────┐
-                         │  Prometheus (:9090)     │
+                         │  Prometheus (:9092)     │
                          │  series temporales      │
                          └──────────┬──────────────┘
                                     │ query
