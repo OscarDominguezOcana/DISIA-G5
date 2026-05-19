@@ -17,7 +17,7 @@
 7. [Configuración de alertas en Grafana](#7-configuración-de-alertas-en-grafana)
 8. [Pruebas de validación](#8-pruebas-de-validación)
 9. [Incidencias encontradas y resoluciones](#9-incidencias-encontradas-y-resoluciones)
-10. [Cierre — commit y reproducibilidad](#10-cierre--commit-y-reproducibilidad)
+10. [Cierre](#10-cierre--commit-y-reproducibilidad)
 11. [Enlaces del grupo](#11-enlaces-del-grupo)
 
 ---
